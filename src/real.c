@@ -27,6 +27,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "real.h"
 #include "mode.h"
 #include "constant.h"
+#include "float.h"
 
 void checkFinite(Real *a){
    if(isnan(a->num)){
@@ -190,8 +191,53 @@ char * printReal(Real *a){
                }
                break;
             case DECIMAL:
-               sprintf(c, "%.15g", a->num);
+               sprintf(c, "%.*g",PRINT_REAL_DIG, a->num);
                break;
+            case DECIMAL_ENG:
+                {
+         	   double mantissa;
+                   int exponent;
+                   char * pch;
+          
+                   sprintf(c, "%.*e",DBL_DIG, a->num);
+                   
+                   pch = strtok (c,"eE");
+                   if (pch != NULL) {
+                      sscanf(pch,"%lg",&mantissa);
+                   } else {
+                      fprintf(stderr, "Error: printReal: no mumber\n");
+                   };
+          
+                   pch = strtok (NULL,"eE");
+                   if (pch != NULL) {   
+                      sscanf(pch,"%d",&exponent);
+                   } else {
+                      fprintf(stderr, "Error: printReal: no exponent\n");
+                   };
+                   // matter of taste, alternative : >5 || <-2 ?
+                   if ( (exponent>2)||(exponent<-0) ) { 
+                      switch (exponent%3) { 
+                        case 2:  
+                           mantissa*=10; 
+                           exponent--; 
+                        case 1: 
+                           mantissa*=10; 
+                           exponent--; 
+                        break; 
+                        case -1: 
+                           mantissa*=10; 
+                           exponent--; 
+                        case -2: 
+                           mantissa*=10; 
+                           exponent--; 
+                        break; 
+                     }      
+                     sprintf(c,"%.*ge%+d",PRINT_REAL_DIG,mantissa,exponent); 
+                   } else  { 
+                     sprintf(c,"%.*g",PRINT_REAL_DIG,a->num); 
+                   };
+                }
+                break;
             case HEXIDECIMAL:
                dd = a->num;
                i = 1;
@@ -694,6 +740,55 @@ Real * divReal(Real *a, Real *b){
          break;
       default:
          fprintf(stderr, "divReal unknown real type\n");
+         exit(0);
+         break;
+   }
+
+   return p;
+}
+
+
+/* modulo 2 Real numbers */
+Real * modReal(Real *a, Real *b){
+   Real *p = newReal();
+
+   switch(a->ok){
+      case REAL_OK:
+         switch(b->ok){
+            case REAL_OK:
+               if(b->num == 0.0){
+                  p->ok = REAL_NAN;
+                  p->num = 0.0;
+               } else {
+                  p->ok = REAL_OK;
+                  p->num = fmod(a->num , b->num);
+		  checkFinite(p);
+               }
+               break;
+            case REAL_INF:
+               p->ok = REAL_NAN;
+               p->num = 0.0;
+               break;
+            case REAL_NAN:
+               p->ok = REAL_NAN;
+               p->num = 0.0;
+               break;
+            default:
+               fprintf(stderr, "modReal unknown real type\n");
+               exit(0);
+               break;
+         }
+         break;
+      case REAL_INF:
+         p->ok = REAL_INF;
+         p->num = 0.0;
+         break;
+      case REAL_NAN:
+         p->ok = REAL_NAN;
+         p->num = 0.0;
+         break;
+      default:
+         fprintf(stderr, "modReal unknown real type\n");
          exit(0);
          break;
    }

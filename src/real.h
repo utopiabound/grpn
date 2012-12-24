@@ -25,6 +25,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "typedefs.h"
 
+// precision of diplayed real
+// (internal is still DBL_DIG)
+#define PRINT_REAL_DIG DBL_DIG-3 // = usuallly 12
+
 #define REAL_INF 0x1
 #define REAL_NAN 0x2
 #define REAL_OK  0x4

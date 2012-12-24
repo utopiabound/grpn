@@ -35,6 +35,7 @@ extern void dmodeToggleCB(gpointer);
 GtkWidget *optBinBtn;
 GtkWidget *optOctBtn;
 GtkWidget *optDecBtn;
+GtkWidget *optDecEngBtn;
 GtkWidget *optHexBtn;
 GtkWidget *optWindow = NULL;
 
@@ -104,6 +105,15 @@ void optionsCB(gpointer data){
 	 gtk_toggle_button_set_state(GTK_TOGGLE_BUTTON(button), getBaseMode() == DECIMAL ? TRUE : FALSE);
 	 gtk_widget_show(button);
          optDecBtn = button;
+
+	 group = gtk_radio_button_group(GTK_RADIO_BUTTON(button));
+	 button = gtk_radio_button_new_with_label(group, "Eng");
+	 gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
+         gtk_signal_connect(GTK_OBJECT(button), "toggled",
+                                   GTK_SIGNAL_FUNC(baseToggleCB), (gpointer)DECIMAL_ENG);
+	 gtk_toggle_button_set_state(GTK_TOGGLE_BUTTON(button), getBaseMode() == DECIMAL_ENG ? TRUE : FALSE);
+	 gtk_widget_show(button);
+         optDecEngBtn = button;
 
 	 group = gtk_radio_button_group(GTK_RADIO_BUTTON(button));
 	 button = gtk_radio_button_new_with_label(group, "Hex");

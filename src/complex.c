@@ -657,7 +657,6 @@ Cmplx * mulCmplxReal(Cmplx *a, Real *b){
    return p;
 }
 
-
 /***************** DIVIDE ***********************/
    
 
@@ -727,6 +726,11 @@ Cmplx * divRealCmplx(Real *a, Cmplx *b){
 
    return p;
 }
+
+
+
+
+
 
 /***************** ADD ***************************/
 

@@ -76,6 +76,10 @@ Cmplx * divCmplx(Cmplx *, Cmplx *);
 Cmplx * divCmplxReal(Cmplx *, Real *);
 Cmplx * divRealCmplx(Real *, Cmplx *);
 
+Cmplx * modCmplx(Cmplx *, Cmplx *);
+Cmplx * modCmplxReal(Cmplx *, Real *);
+Cmplx * modRealCmplx(Real *, Cmplx *);
+
 Cmplx * addCmplx(Cmplx *, Cmplx *);
 Cmplx * addCmplxReal(Cmplx *, Real *);
 

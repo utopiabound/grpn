@@ -33,6 +33,7 @@ extern void quitCB(gpointer);
 extern void clearCB(gpointer);
 extern void optionsCB(gpointer);
 extern void licenseCB(gpointer);
+extern void aboutCB(gpointer);
 extern void helpCB(gpointer);
 
 
@@ -63,9 +64,14 @@ GnomeUIInfo helpmenu[] = {
       "License", "License",
       licenseCB, NULL, NULL, 
       GNOME_APP_PIXMAP_NONE, NULL, 0, 0, NULL},
+   {GNOME_APP_UI_ITEM, 
+      "About", "About",
+      aboutCB, NULL, NULL, 
+      GNOME_APP_PIXMAP_NONE, NULL, 0, 0, NULL},
    GNOMEUIINFO_HELP("grpn"),
    GNOMEUIINFO_END
 };
+
 GnomeUIInfo mainmenu[] = {
    GNOMEUIINFO_MENU_FILE_TREE(filemenu),
    GNOMEUIINFO_MENU_HELP_TREE(helpmenu),
@@ -97,6 +103,7 @@ GtkWidget *setup_menu(GtkWidget *parent)
    GtkWidget          *binI;
    GtkWidget          *octI;
    GtkWidget          *decI;
+   GtkWidget          *decEngI;
    GtkWidget          *hexI;
    GtkWidget       *radixM, *radixI;
    GtkWidget          *degI;
@@ -111,6 +118,7 @@ GtkWidget *setup_menu(GtkWidget *parent)
    GtkWidget    *helpM, *helpI;
    GtkWidget       *hlpI;
    GtkWidget       *licenseI;
+   GtkWidget       *aboutI;
 
 
 
@@ -166,6 +174,12 @@ GtkWidget *setup_menu(GtkWidget *parent)
 	 gtk_widget_show(decI);
 	 gtk_signal_connect_object(GTK_OBJECT(decI), "activate",
 				   GTK_SIGNAL_FUNC(baseCB), (gpointer)DECIMAL);
+	 /* Decimal-Eng */
+	 decEngI = gtk_menu_item_new_with_label("Decimal-Eng");
+	 gtk_menu_append(GTK_MENU(baseM), decEngI);
+	 gtk_widget_show(decEngI);
+	 gtk_signal_connect_object(GTK_OBJECT(decEngI), "activate",
+				   GTK_SIGNAL_FUNC(baseCB), (gpointer)DECIMAL_ENG);
 	 /* Hex */
 	 hexI = gtk_menu_item_new_with_label("Hex");
 	 gtk_menu_append(GTK_MENU(baseM), hexI);
@@ -260,6 +274,12 @@ GtkWidget *setup_menu(GtkWidget *parent)
       gtk_widget_show(licenseI);
       gtk_signal_connect_object(GTK_OBJECT(licenseI), "activate",
 				GTK_SIGNAL_FUNC(licenseCB), NULL);
+      /* Help */
+      aboutI = gtk_menu_item_new_with_label("About");
+      gtk_menu_append(GTK_MENU(helpM), aboutI);
+      gtk_widget_show(aboutI);
+      gtk_signal_connect_object(GTK_OBJECT(aboutI), "activate",
+				GTK_SIGNAL_FUNC(aboutCB), NULL);
 
    /********************************************************/
 

@@ -824,6 +824,90 @@ Number * divNumber(Number *a, Number *b){
 }
 
 
+Number * modNumber(Number *a, Number *b){
+   Number *c = newNumber();
+
+   if(a == NULL || b == NULL) 
+      { fprintf(stderr, "modNumber(NULL)\n"); exit(0); }
+
+   switch(a->type){
+      case REAL:
+         switch(b->type){
+            case REAL:
+               c->type = REAL;
+               c->data = modReal(a->data, b->data);
+               break;
+            case COMPLEX:
+               c->type = COMPLEX;
+               invalidTyprError("mod");
+               c->data = NULL;
+               break;
+            case MATRIX:
+               c->type = MATRIX;
+               invalidTyprError("mod");
+               c->data = NULL;
+               break;
+            default:
+               fprintf(stderr, "Error: Unknown number type\n");
+               exit(0);
+               break;
+         }
+         break;
+      case COMPLEX:
+         switch(b->type){
+            case COMPLEX:
+               c->type = COMPLEX;
+               invalidTyprError("mod");
+               c->data = NULL;
+               break;
+            case REAL:
+               c->type = COMPLEX;
+               invalidTyprError("mod");
+               c->data = NULL;
+               break;
+            case MATRIX:
+               c->type = MATRIX;
+               invalidTyprError("mod");
+               c->data = NULL;
+               break;
+            default:
+               fprintf(stderr, "Error: Unknown number type\n");
+               exit(0);
+               break;
+         }
+         break;
+      case MATRIX:
+         switch(b->type){
+            case MATRIX:
+               c->type = MATRIX;
+               invalidTyprError("mod");
+               c->data = NULL;
+               break;
+            case COMPLEX:
+               c->type = MATRIX;
+               invalidTyprError("mod");
+               c->data = NULL;
+               break;
+            case REAL:
+               c->type = MATRIX;
+               c->data = modMatrixReal(a->data, b->data);
+               break;
+            default:
+               fprintf(stderr, "Error: Unknown number type\n");
+               exit(0);
+               break;
+         }
+         break;
+      default:
+         fprintf(stderr, "Error: Unknown number type\n");
+         exit(0);
+   }
+
+   if(c->data == NULL){ free(c); c = NULL; }
+   return c;
+}
+
+
 Number * addNumber(Number *a, Number *b){
    Number *c = newNumber();
 

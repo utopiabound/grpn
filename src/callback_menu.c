@@ -54,6 +54,9 @@ void clearCB(gpointer data){
 
 }
 
+void aboutCB(gpointer data){
+   about_popup();
+}
 
 void licenseCB(gpointer data){
    license_popup();
@@ -86,6 +89,8 @@ void baseCmdCB(GtkWidget *w, gpointer clientData){
 	 getBaseMode() == HEXIDECIMAL ? TRUE : FALSE);
       gtk_toggle_button_set_state(GTK_TOGGLE_BUTTON(optDecBtn), 
 	 getBaseMode() == DECIMAL ? TRUE : FALSE);
+      gtk_toggle_button_set_state(GTK_TOGGLE_BUTTON(optDecEngBtn), 
+	 getBaseMode() == DECIMAL_ENG ? TRUE : FALSE);
       gtk_toggle_button_set_state(GTK_TOGGLE_BUTTON(optOctBtn), 
 	 getBaseMode() == OCTAL ? TRUE : FALSE);
       gtk_toggle_button_set_state(GTK_TOGGLE_BUTTON(optBinBtn), 
@@ -99,6 +104,7 @@ void baseToggleCB(GtkWidget *widget, gpointer data){
    }
 }
 
+
 /* change the radix mode we use to display the numbers */
 void radixCB(gpointer clientData){
    
@@ -107,6 +113,13 @@ void radixCB(gpointer clientData){
    /* refresh the display */
    redrawLCD();
    refreshModeDisplay();
+}
+
+void radixCmdCB(GtkWidget *w, gpointer clientData){
+   FuncInfo *fi = (FuncInfo *)clientData;
+
+   /* store the mode */
+   radixCB(fi->data);
 }
 
 void radixToggleCB(GtkWidget *widget, gpointer data){
@@ -126,13 +139,20 @@ void cmodeCB(gpointer clientData){
          setPolarMode(POLAR);
          break;
       default:
-         fprintf(stderr, "Error: radixCB: i shouldn't get here\n");
+         fprintf(stderr, "Error: cmodeCB: i shouldn't get here\n");
          exit(0);
    }
 
    /* refresh the display */
    redrawLCD();
    refreshModeDisplay();
+}
+
+void cmodeCmdCB(GtkWidget *w, gpointer clientData){
+   FuncInfo *fi = (FuncInfo *)clientData;
+
+   /* store the mode */
+   cmodeCB(fi->data);
 }
 
 void cmodeToggleCB(GtkWidget *widget, gpointer data){

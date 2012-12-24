@@ -54,6 +54,12 @@ Matrix * divMatrixReal(Matrix *, Real *);
 Matrix * divCmplxMatrix(Cmplx *, Matrix *);
 Matrix * divRealMatrix(Real *, Matrix *);
 
+Matrix * modMatrix(Matrix *, Matrix *);
+Matrix * modMatrixCmplx(Matrix *, Cmplx *);
+Matrix * modMatrixReal(Matrix *, Real *);
+Matrix * modCmplxMatrix(Cmplx *, Matrix *);
+Matrix * modRealMatrix(Real *, Matrix *);
+
 Matrix * addMatrix(Matrix *, Matrix *);
 Matrix * addMatrixCmplx(Matrix *, Cmplx *);
 Matrix * addMatrixReal(Matrix *, Real *);

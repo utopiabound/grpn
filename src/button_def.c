@@ -32,25 +32,43 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 
 extern void baseCmdCB(GtkWidget *, gpointer);
+extern void cmodeCmdCB(GtkWidget *, gpointer);
+extern void radixCmdCB(GtkWidget *, gpointer);
 
 FuncInfo invisible1[] = {
+   { "Modulo", "mod", "Remainder of division.",
+      genericButtonCB, (void *)ModStack },
    { "Hex", "hex", "Hexidecimal display mode.",
       baseCmdCB, (void *)HEXIDECIMAL },
    { "Dec", "dec", "Decimal display mode.",
       baseCmdCB, (void *)DECIMAL },
+   //do not forget to add one item in
+   //  struct RowInfo rowinf[] = {
+   //      { >>>19<<<, 0, invisible1 }
+   //below
+   { "Eng", "eng", "ENG Decimal display mode.",
+      baseCmdCB, (void *)DECIMAL_ENG },
    { "Oct", "oct", "Octal display mode.",
       baseCmdCB, (void *)OCTAL },
    { "Bin", "bin", "Binary display mode.",
       baseCmdCB, (void *)BINARY },
+   { "Rect", "rect", "Rectangular display mode.",
+      cmodeCmdCB, (void *)RECTANGULAR },
+   { "Polar", "pol", "Polar display mode.",
+      cmodeCmdCB, (void *)POLAR },
+   { "Deg", "deg", "Angles in degree.",
+      radixCmdCB, (void *)DEGREES },
+   { "Rad", "rad", "Angles in radian.",
+      radixCmdCB, (void *)RADIANS },
    { "Db10", "db10", "Convert to dB (Power).",
       genericButtonCB, (void *)Db10Stack },
    { "Db20", "db20", "Convert to dB (Voltage).",
       genericButtonCB, (void *)Db20Stack },
    { "Rip", "rip", "Resistors in parallel.",
       genericButtonCB, (void *)RipStack },
-   { "Cplx", "cplx", "Create a complex number.", 
+   { "Cplx", "cplx", "Create or decompose a complex number.", 
       genericButtonCB, (void *)CplxStack },
-   { "Cplx", "complex", "Create a complex number.",
+   { "Cplx", "complex", "Create or decompose a complex number.",
       genericButtonCB, (void *)CplxStack },
    { "Mtrx", "mtrx", "Create or decompose a matrix.",
       genericButtonCB, (void *)MtrxStack },
@@ -137,7 +155,7 @@ struct RowInfo rowinf[] = {
    { 8, 8, num456 },
    { 8, 8, num123 },
    { 8, 8, num0 },
-   { 14, 0, invisible1 }
+   { 20, 0, invisible1 }
 };
 
 

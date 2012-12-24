@@ -173,7 +173,11 @@ void processInput(int ksym, int isCtrl, char bb, char chr){
          /* ascii characters */
          if((keysym >= GDK_KP_Space && keysym <= GDK_KP_9) ||
             (keysym >= GDK_space && keysym <= GDK_asciitilde)){
-
+            // interpret , as . to cope with international
+            // number keypads.
+            if (bb == ',') {
+                bb='.';
+            } 
             insertEditor(bb);
          }
 

@@ -143,6 +143,22 @@ void test(){
       freeNumber(p1);
    }
 
+   p1 = modNumber(a, b);
+   if(p1){
+      c = printNumber(p1);
+      printf("a mod b = %s\n", c); 
+      free(c);
+      freeNumber(p1);
+   }
+
+   p1 = modNumber(b, a);
+   if(p1){
+      c = printNumber(p1);
+      printf("b mod a = %s\n", c); 
+      free(c);
+      freeNumber(p1);
+   }
+
 
    printf("done testing...\n");
 }

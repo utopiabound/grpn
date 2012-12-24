@@ -362,6 +362,60 @@ Matrix * divMatrixReal(Matrix *a, Real *b){
    return p;
 }
 
+/***************** MODULO *******************/
+
+/* modulo 2 Matrixes  */
+Matrix * modMatrix(Matrix *a, Matrix *b){
+   invalidTyprError("mod");
+   return NULL;
+}
+
+/* modulo a Cmplx by a Matrix */
+Matrix * modCmplxMatrix(Cmplx *a, Matrix *b){
+   invalidTyprError("mod");
+   return NULL;
+}
+
+/* modulo a Cmplx by a Matrix */
+Matrix * modRealMatrix(Real *a, Matrix *b){
+   invalidTyprError("mod");
+   return NULL;
+}
+
+/* modulo a Matrix by a Cmplx */
+Matrix * modMatrixCmplx(Matrix *a, Cmplx *b){
+   invalidTyprError("mod");
+   return NULL;
+}
+
+
+/* modulo a Matrix by a Real */
+Matrix * modMatrixReal(Matrix *a, Real *b){
+   int i, j;
+   Number *n1;
+   Number **ptr1, **ptr2;
+   Matrix *p = newMatrix();
+
+   if(a == NULL) { fprintf(stderr, "modMatrixReal(NULL)\n"); exit(0); }
+
+   /* initalize the stuff in p */
+   p->data = mallocData(NULL, a->rows, a->cols);
+   p->rows = a->rows;
+   p->cols = a->cols;
+
+   /* p[i][j] = b + a[i][j] */
+   for(i=0; i<a->rows; i++)
+      for(j=0; j<a->cols; j++){
+         ptr1 = a->data + (a->cols * i) + j;
+         ptr2 = p->data + (a->cols * i) + j;
+         *ptr2 = modNumber(*ptr1, (n1=setNumberReal(newNumber(), b)));
+         freeNumber(n1);
+      }
+
+   return p;
+}
+
+
 
 
 /***************** ADD *******************/

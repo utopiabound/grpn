@@ -26,13 +26,21 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "buttons.h"
 #include "license.h"
 
-#define HELP_TXT \
+#define ABOUT_TXT \
 "\n\
-GRPN  v1.1.2\n\
+GRPN  v1.1.7.4\n\
+\n\
+GRPN is a graphical reverse polish notation (RPN) calculator.\n\
 \n\
 By: Paul Wilkins\n\
-    paul.wilkins@analog.com\n\
+    paul.wilkins at analog com\n\
+    Changes since version 1.1.3: Jens Getreu\n\
+    getreu at web de\n\
 \n\
+"
+
+#define HELP_TXT \
+"\
 GRPN is a graphical reverse polish notation (RPN) calculator.\n\
 \n\
 GRPN works with real numbers, complex numbers, matrices, and\n\
@@ -77,6 +85,31 @@ dec\n\
 Mouse input simply requires pressing the button with the desired\n\
 command.\n\
 \n\
+To enter a matrix first push its data on the stack as you would\n\
+lines, f. ex.:\n\
+1<enter> 2<enter> 3<enter> 4<enter> 5<enter> 6<enter>\n\
+\n\
+Then you can enter the dimension of the matrix f. ex.:\n\
+3<enter> 2<enter> matrix<enter>\n\
+\n\
+As you can see in the following output, the command 'matrix'\n\
+creates (or decomposes) the matrix:\n\
+1:  [1 2 3 \n\
+     4 5 6]\n\
+\n\
+Complex numbers are entered in a similar way:\n\
+3<enter> 7<enter> complex<enter>\n\
+1:  (3,7)\n\
+\n\
+Note that the complex-command also decomposes\n\
+complex numbers:\n\
+complex<enter>\n\
+2:  3\n\
+1:  7\n\
+\n\
+The 'undo' command allows you to undo up to the last 10\n\
+operations.\n\
+\n\
 Available commands:\n\
 \n\
 +           Add.\n\
@@ -89,6 +122,7 @@ Available commands:\n\
 "
 
 void popup_window(GtkWidget **dialog, char *txt, char *title){
+
 
    GtkWidget *vbox;
    GtkWidget *scrolled_win;
@@ -204,5 +238,9 @@ void help_popup(){
    free(htxt);
 }
 
-
+void about_popup(){
+   static GtkWidget *dialog = NULL;
+ 
+   popup_window(&dialog, ABOUT_TXT, "About");
+}
 

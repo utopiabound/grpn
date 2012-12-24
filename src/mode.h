@@ -38,6 +38,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define LONG_DISPLAY 0x100
 #define SHORT_DISPLAY 0x200
 
+#define DECIMAL_ENG 0x400
 
 void setPolarMode(int);
 int getPolarMode();

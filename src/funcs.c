@@ -35,6 +35,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 void decomposeMtrx();
 void createMtrx();
+void decomposeCmplx();
+void createCmplx();
 Number * readNumber(char *line, int *nread);
 int isDigitBase(char c);
 
@@ -559,6 +561,25 @@ void DivStack(){
    }
 }
 
+void ModStack(){
+   Number *n1, *n2, *n3;
+
+   finishEditor();
+
+   if(checkArgs("mod", 2)) return;
+   SaveStackState(2);
+
+   n1 = Pop();
+   n3 = modNumber((n2=Pop()), n1);
+   if(n3){
+      Push(n3); freeNumber(n1); freeNumber(n2);
+      UndoStackState(1);
+   } else {
+      Push(n2); Push(n1);
+      CancelStackState();
+   }
+}
+
 void SwapStack(){
    Number *n1, *n2;
 
@@ -576,14 +597,31 @@ void SwapStack(){
 }
 
 void CplxStack(){
-   Number *n1, *n2;
-   Cmplx *c1;
+   Number *n1;
 
    finishEditor();
 
-   if(checkArgs("cplx", 2)) return;
-   SaveStackState(2);
+   if(checkArgs("cplx", 1)) return;
+   n1 = getStackEle(0);
 
+   switch(n1->type){
+      case COMPLEX:
+         decomposeCmplx();
+         break;
+      case REAL:
+         if(checkArgs("cplx", 2)) return;
+         createCmplx();
+         break;
+      default:
+         setStringError("complex Error: Bad Argument Type.");
+   }
+}
+
+void createCmplx(){
+   Number *n1, *n2;
+   Cmplx *c1;
+   SaveStackState(2);
+  
    n1 = Pop();
    n2 = Pop();
    if(n1->type != REAL || n2->type != REAL){
@@ -599,6 +637,42 @@ void CplxStack(){
    freeCmplx(c1);
 
    UndoStackState(1);
+}
+
+void decomposeCmplx () {
+   Real *re1, *re2;
+   Number *n1;
+   Cmplx *a, *c1;
+
+   if(checkArgs("cplx", 1)) return;
+   SaveStackState(1);
+
+   n1 = Pop();
+   a = (Cmplx *)n1->data;
+   re1=newReal();
+   re2=newReal();
+
+   if(getPolarMode() == POLAR){
+      c1 = polarCmplx(a);
+      setRealReal(re1, c1->re);
+      if(getRadixMode() == DEGREES){
+         mulEqReal(c1->im, real180Pi);
+         setRealReal(re2, c1->im);
+      } else {
+         setRealReal(re2, c1->im);
+      }
+      freeCmplx(c1);
+   } else {
+      setRealReal(re1, a->re);
+      setRealReal(re2, a->im);
+   }
+
+   Push(setNumberReal(newNumber(), re1));
+   Push(setNumberReal(newNumber(), re2));
+   freeReal(re1);
+   freeReal(re2);
+   freeNumber(n1);
+   UndoStackState(2);
 }
 
 /* either make a matrix or decompose a matrix */
@@ -733,6 +807,9 @@ int isDigitBase(char c){
       case HEXIDECIMAL:
          return IS_HEX(c);
          break;
+      case DECIMAL_ENG:
+         return IS_DEC(c);
+         break;
       case DECIMAL:
          return IS_DEC(c);
          break;
@@ -773,6 +850,7 @@ Number * readNumber(char *line, int *nread){
          if(p-line == 0) return NULL;
 	 break;
       case DECIMAL:
+      case DECIMAL_ENG:
 	 /* the line starts with a number-- read it in */
 	 if(1 != sscanf(line, "%lg%n", &num, nread)){
 	    return NULL;

@@ -29,3 +29,50 @@ v1.1.1
 
 v1.1.2
    Add db10 and db20 commands.
+
+v1.1.3
+   Added deg, rad, pol and rect commands.
+
+v1.1.4 
+   Interpret comma input characters as a points.  This is useful
+   since in many countries the number keypad has a comma instead of a
+   point. 
+
+v1.1.5 
+   Added engineer notation.  Adjust exponents of real numbers to
+   multipliers of 3, for example: print 100e-6 instead of 1e-4 .  Only
+   applies to exponents >5 or <1.
+
+v1.1.6.1 
+   Introduced DECIMAL_ENG mode for engineer notation.  The user
+   can now switch between 100e-6 and 1e-4 printout.  DECIMAL mode
+   behaves like it did before 1.1.5j.  Shortcut for this is "eng".
+   Added "About" menu.  Bugfix: some commands like 'quit' and 'matrix'
+   dismissed because a command counter was not updated in button_def.c.
+   Fixed.
+
+v1.1.7 
+   The complex function can now not only create complex numbers
+   but also decompose them. 
+
+v1.1.7.1
+   minor change in callback_menu.c to compile also under cygwin.
+
+v1.1.7.2
+   Not a bug, but very confusing:
+   for ex.: 194870,27-18500 gives "9870.26999999999".
+   Remember, you cannot store the decimal number 0.1 exactly in a
+   float since there's no way to build 0.1 as a sum of (negative) powers
+   of two.
+   To avoid output like the above, every real is now displayed with
+   a precision of maximum 12 digits.
+
+v1.1.7.3
+   Clean up in real.c and real.h (does not change anything):
+   Introduce constant    
+         #define PRINT_REAL_DIG DBL_DIG-3 // = usually 12 
+
+v1.1.7.4
+   New function "mod"=remainder introduced. The remainder of a division 
+   operation is the result of subtracting the integral quotient 
+   multiplied by the denominator from the numerator

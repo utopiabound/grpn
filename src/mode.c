@@ -30,7 +30,7 @@ GtkWidget *ModeDisplay = NULL;
 
 int radixMode = RADIANS;
 int polarMode = RECTANGULAR;
-int baseMode = DECIMAL;
+int baseMode = DECIMAL_ENG;
 
 int getRadixMode(){
    return radixMode;
@@ -97,6 +97,9 @@ char *getModeDisplayString(){
          break;
       case DECIMAL:
          strcat(buf, "Decimal");
+         break;
+      case DECIMAL_ENG:
+         strcat(buf, "Decimal-Eng");
          break;
       case HEXIDECIMAL:
          strcat(buf, "Hexidecimal");

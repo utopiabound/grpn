@@ -73,6 +73,7 @@ void AddStack();
 void SubStack();
 void MulStack();
 void DivStack();
+void ModStack();
 
 void SwapStack();
 void CplxStack();
