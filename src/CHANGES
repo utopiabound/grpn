@@ -88,5 +88,11 @@ v1.3.0
 
 v1.3.1
    Basemode defaults now to dec like the original version 1.1.2.
-   A new commandline option -bm dec|eng|bin|oct|hex allows to
+   A new command line option -bm dec|eng|bin|oct|hex allows to
    change the default value for basemode.
+
+v1.3.2
+   Cntr-c copies the bottom of the stack to the Gnome-clipboard.
+   (Cntr-v not implemented yet).
+   Complex numbers are displayed with ";" instead of ",".
+   "," is decimal separator in some locales.

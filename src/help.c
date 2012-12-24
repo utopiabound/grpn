@@ -66,6 +66,9 @@ stack, then press the add (+) button:\n\
 \n\
 The result is left on the stack.\n\
 \n\
+Cntr-c copies the result to the clipboard for use in \n\
+other applications. \n\
+\n\
 Note that GRPN uses a shorthand for all commands that causes\n\
 an automatic <enter> before executing a command.  The previous\n\
 example could then be done as:\n\
@@ -195,29 +198,33 @@ void popup_window(GtkWidget **dialog, char *txt, char *title){
  
 
 void license_popup(){
+   int i;
    char *htxt;
-   static GtkWidget *dialog = NULL;
+   static GtkWidget *licenseDialog = NULL;
  
    if(NULL == (htxt = (char*)malloc((10000)*sizeof(char)))){
-      perror("help_popup: malloc");
+      perror("license_popup: malloc");
       return;
    } else {
       strcpy(htxt, LICENSE_TXT);
+      //popup_window wants a long text to scroll
+      for(i=0; i<60; i++){
+	       strcat(htxt, "\n");
+      }
    }
-   popup_window(&dialog, htxt, "License");
+   popup_window(&licenseDialog, htxt, "License");
    free(htxt);
 }
  
  
 
 void help_popup(){
- 
    int i, j, k;
    int cmds;
    int len;
    char *htxt;
    char *cmd;
-   static GtkWidget *dialog = NULL;
+   static GtkWidget *helpDialog = NULL;
 
    cmds = 0;
    for(i=0; i<NumFunctionRows; i++){
@@ -228,7 +235,7 @@ void help_popup(){
       return;
    } else {
       strcpy(htxt, HELP_TXT);
-      /* append the list of commands to the help text */
+      // append the list of commands to the help text 
       for(i=0; i<NumFunctionRows; i++){
 	 for(j=0; j<rowinf[i].numBtns; j++){
 	    cmd = rowinf[i].fi[j].cmd;
@@ -243,24 +250,29 @@ void help_popup(){
       }
    }
 
-   popup_window(&dialog, htxt, "Help");
+   popup_window(&helpDialog, htxt, "Help");
 
    free(htxt);
+
 }
 
 void about_popup(){
+   int i;
    char *htxt;
-   static GtkWidget *dialog = NULL;
+   static GtkWidget *aboutDialog = NULL;
  
    if(NULL == (htxt = (char*)malloc((10000)*sizeof(char)))){
-      perror("help_popup: malloc");
+      perror("about_popup: malloc");
       return;
    } else {
       strcpy(htxt, GRPN_VERSION);
       strcat(htxt, ABOUT_TXT);
+      //popup_window wants a long text to scroll
+      for(i=0; i<60; i++){
+	       strcat(htxt, "\n");
+      }
    }
-   popup_window(&dialog, htxt, "About");
+   popup_window(&aboutDialog, htxt, "About");
    free(htxt);
- 
 }
 

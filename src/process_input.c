@@ -29,12 +29,19 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "lcd.h"
 #include "editor.h"
 #include "error.h"
+#include "number.h"
 
 
 
 void processInput(int ksym, int isCtrl, char bb, char chr){
    int keysym;
    char c;
+
+   gchar* cliptext; 
+   GtkClipboard* clipboard;
+   Number *num;
+   
+
 
    if(ksym == 0){
       switch(chr){
@@ -68,9 +75,14 @@ void processInput(int ksym, int isCtrl, char bb, char chr){
 
    if(isCtrl){
       switch(keysym){
-         case GDK_c:
-            /* quit */
-            exit(0);
+         case GDK_c:      /*copy to clipboard*/
+                if(NULL == (num = getStackEle(0))) break;
+                if(NULL == (cliptext = printNumber(num))) break;
+
+             	clipboard = gtk_clipboard_get (GDK_SELECTION_CLIPBOARD);
+             	gtk_clipboard_set_text (clipboard, cliptext, -1);
+             	gtk_clipboard_store(clipboard);
+                free(cliptext);
             break;
       }
 
