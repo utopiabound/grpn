@@ -55,7 +55,7 @@ void optionsCB(gpointer data){
       gtk_signal_connect(GTK_OBJECT(optWindow), "destroy",
 			GTK_SIGNAL_FUNC(gtk_widget_destroyed),
 			&optWindow);
-#ifdef GTK_VER_1_1
+#ifdef GTK_VER_2_0
       gtk_container_set_border_width(GTK_CONTAINER(optWindow), 5);
 #else
       gtk_container_border_width(GTK_CONTAINER(optWindow), 5);
@@ -69,7 +69,7 @@ void optionsCB(gpointer data){
       /************************************************************/
       frame = gtk_frame_new("Base");
       gtk_box_pack_start(GTK_BOX(vbox), frame, TRUE, TRUE, 0);
-#ifdef GTK_VER_1_1
+#ifdef GTK_VER_2_0
       gtk_container_set_border_width(GTK_CONTAINER(frame), 5);
 #else
       gtk_container_border_width(GTK_CONTAINER(frame), 5);
@@ -127,7 +127,7 @@ void optionsCB(gpointer data){
       /************************************************************/
       frame = gtk_frame_new("Radix");
       gtk_box_pack_start(GTK_BOX(vbox), frame, TRUE, TRUE, 0);
-#ifdef GTK_VER_1_1
+#ifdef GTK_VER_2_0
       gtk_container_set_border_width(GTK_CONTAINER(frame), 5);
 #else
       gtk_container_border_width(GTK_CONTAINER(frame), 5);
@@ -157,7 +157,7 @@ void optionsCB(gpointer data){
       /************************************************************/
       frame = gtk_frame_new("Coordinate Mode");
       gtk_box_pack_start(GTK_BOX(vbox), frame, TRUE, TRUE, 0);
-#ifdef GTK_VER_1_1
+#ifdef GTK_VER_2_0
       gtk_container_set_border_width(GTK_CONTAINER(frame), 5);
 #else
       gtk_container_border_width(GTK_CONTAINER(frame), 5);
@@ -187,7 +187,7 @@ void optionsCB(gpointer data){
       /************************************************************/
       frame = gtk_frame_new("Display Mode");
       gtk_box_pack_start(GTK_BOX(vbox), frame, TRUE, TRUE, 0);
-#ifdef GTK_VER_1_1
+#ifdef GTK_VER_2_0
       gtk_container_set_border_width(GTK_CONTAINER(frame), 5);
 #else
       gtk_container_border_width(GTK_CONTAINER(frame), 5);

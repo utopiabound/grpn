@@ -87,7 +87,7 @@ static gint lcdKeyReleaseEvnt(GtkWidget *widget, GdkEventKey *event);
 
 void lcdPasteCB(GtkWidget *, GtkSelectionData *, gpointer);
 gint loseSelection(GtkWidget *, GdkEventSelection *);
-#ifdef GTK_VER_1_1
+#ifdef GTK_VER_2_0
 void convertSelection(GtkWidget *, GtkSelectionData *,
    guint, guint, gpointer);
 #else
@@ -109,7 +109,7 @@ GtkWidget *setupLCD(GtkWidget *parent, int rows, int cols, char *font){
    int i;
    int width;
    int wid, hgt;
-#ifdef GTK_VER_1_1
+#ifdef GTK_VER_2_0
    static GtkTargetEntry targetlist[] = {
      /* Target          Flags  Info      */
      { "STRING",        0,     TARGET_STRING },
@@ -178,7 +178,7 @@ GtkWidget *setupLCD(GtkWidget *parent, int rows, int cols, char *font){
    gtk_signal_connect(GTK_OBJECT(lcdDA), "selection_request_event",
                      (GtkSignalFunc)convertSelection, NULL);
    */
-#ifdef GTK_VER_1_1
+#ifdef GTK_VER_2_0
    gtk_selection_add_targets(lcdDA,
       GDK_SELECTION_PRIMARY, targetlist, ntargets);
 
@@ -631,7 +631,7 @@ static gint lcdMotionEvnt(GtkWidget *widget, GdkEventMotion *event)
 
 }
 
-#ifdef GTK_VER_1_1
+#ifdef GTK_VER_2_0
 void convertSelection(
    GtkWidget *widget,
    GtkSelectionData *selection,
@@ -672,12 +672,12 @@ void convertSelection(
       }
       str[len-1] = '\0';
 
-#ifdef GTK_VER_1_1
+#ifdef GTK_VER_2_0
       switch(info){
 #else
       switch(selection->target){
 #endif
-         case GDK_TARGET_STRING:
+         //case GDK_TARGET_STRING:
          case TARGET_STRING:
 	    gtk_selection_data_set(
 	       selection,

@@ -76,3 +76,7 @@ v1.1.7.4
    New function "mod"=remainder introduced. The remainder of a division 
    operation is the result of subtracting the integral quotient 
    multiplied by the denominator from the numerator
+
+v1.2
+   Compiles against gt+-2.0. Locale determines the decimal separator
+   point or comma now.

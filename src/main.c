@@ -156,8 +156,8 @@ main(int argc, char *argv[])
          exit(0);
       }
       new_style = gtk_style_copy(default_style);
-      new_style->font = new_font;
-      gtk_widget_set_default_style(new_style);
+      //new_style->font = new_font;
+      //gtk_widget_set_default_style(new_style);
    }
    
 

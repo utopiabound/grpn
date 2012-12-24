@@ -28,7 +28,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #define ABOUT_TXT \
 "\n\
-GRPN  v1.1.7.4\n\
+GRPN  v1.2\n\
 \n\
 GRPN is a graphical reverse polish notation (RPN) calculator.\n\
 \n\
@@ -137,7 +137,7 @@ void popup_window(GtkWidget **dialog, char *txt, char *title){
       gtk_signal_connect(GTK_OBJECT(*dialog), "destroy",
                         GTK_SIGNAL_FUNC(gtk_widget_destroyed),
                         dialog);
-#ifdef GTK_VER_1_1
+#ifdef GTK_VER_2_0
       gtk_container_set_border_width(GTK_CONTAINER(*dialog), 5); 
 #else
       gtk_container_border_width(GTK_CONTAINER(*dialog), 5); 
@@ -151,7 +151,7 @@ void popup_window(GtkWidget **dialog, char *txt, char *title){
       gtk_widget_show(vbox);
 
       scrolled_win = gtk_scrolled_window_new (NULL, NULL);
-#ifdef GTK_VER_1_1
+#ifdef GTK_VER_2_0
       gtk_container_set_border_width(GTK_CONTAINER(scrolled_win), 5); 
 #else
       gtk_container_border_width(GTK_CONTAINER(scrolled_win), 5); 
@@ -166,7 +166,7 @@ void popup_window(GtkWidget **dialog, char *txt, char *title){
       gtk_signal_connect(GTK_OBJECT(label), "destroy",
                           GTK_SIGNAL_FUNC(gtk_widget_destroyed), &label);
       gtk_label_set_justify(GTK_LABEL(label), GTK_JUSTIFY_LEFT);
-#ifdef GTK_VER_1_1
+#ifdef GTK_VER_2_0
       gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolled_win), label);
 #else
       gtk_container_add(GTK_CONTAINER(scrolled_win), label);

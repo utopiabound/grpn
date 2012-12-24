@@ -21,6 +21,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include <stdio.h>
 #include <gtk/gtk.h>
+#include <locale.h>
+
 
 #include "buttons.h"
 #include "funcs.h"
@@ -52,14 +54,25 @@ void nullButtonCB(GtkWidget *w, gpointer clientData){
 
 /* inserts a char into the edit buffer */
 void enterNumCB(GtkWidget *w, gpointer clientData){
-   int tmp;
    FuncInfo *fi = (FuncInfo *)clientData;
 
    /* reset any error string */
    resetError();
+  
+   int digit = (int)fi->data;
+   if (digit=='.') 
+   {
+     //is the locale decimal seperator a comma?
+     struct lconv * lc;
+     lc=localeconv();
+     if  (strcmp(lc->decimal_point,",")==0)
+       {
+          // then turn the . from the button to a ,
+          digit=',';
+       }
+   }
 
-   tmp = (int)fi->data;
-   insertEditor(tmp);
+   insertEditor(digit);
    redrawLCD();
 }
 

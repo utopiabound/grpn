@@ -20,9 +20,9 @@ GTK_DIR =
 # add -DUSE_GNOME if you want to make grpn GNOME compliant.
 
 
-CFLAGS = -g -O2 -I/usr/X11/include  `$(GTK_DIR)gtk-config --cflags` -DGTK_VER_1_1
+CFLAGS = -g -O2 -I/usr/include/X11  `$(GTK_DIR)pkg-config --cflags gtk+-2.0` -DGTK_VER_2_0 
 
-DFLAGS =  -L/usr/X11/lib 
+DFLAGS =  -L/usr/lib/X11 
 
 # end of user configurable section
 
@@ -37,7 +37,9 @@ OBJS = test_gtk_ver.o real.o complex.o matrix.o number.o \
 
 
 
-LIBS   = `$(GTK_DIR)gtk-config --libs` -lX11 -lm 
+LIBS   = `$(GTK_DIR)pkg-config --libs gtk+-2.0` -lX11 -lm 
+
+
 
 
 grpn:	$(OBJS)

@@ -136,7 +136,7 @@ char * printCmplxShort(Cmplx *a){
       p2 = printReal(a->im);
    }
 
-   sprintf(c, "(%s, %s)", p1, p2);
+   sprintf(c, "(%s; %s)", p1, p2);
    free(p1);
    free(p2);
 
@@ -168,7 +168,7 @@ char * printCmplx(Cmplx *a){
       p2 = printReal(a->im);
    }
 
-   sprintf(c, "(%s, %s)", p1, p2);
+   sprintf(c, "(%s; %s)", p1, p2);
 
    if(strlen(p1)+strlen(p2)+4 > lcdWidth-4) *(c+strlen(p1)+2) = '\n';
    free(p1);

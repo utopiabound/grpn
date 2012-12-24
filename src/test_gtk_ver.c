@@ -30,10 +30,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  * GTK version == 1.0   unset GTK_VER_1_1
  * GTK version == 1.1   set GTK_VER_1_1
  * GTK version == 1.2   set GTK_VER_1_1
+ * GTK version == 2.x   set GTK_VER_2_0
  */
 
-#ifdef GTK_VER_1_1  
+#ifdef GTK_VER_2_0  
 
-typedef GtkTargetEntry WRONG_VERSION_OF_GTK_PLEASE_UNSET_GTK_VER_1_1_IN_MAKEFILE;
+typedef GtkTargetEntry WRONG_VERSION_OF_GTK_PLEASE_UNSET_GTK_VER_2_0_IN_MAKEFILE;
 
 #endif
