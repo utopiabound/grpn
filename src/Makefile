@@ -3,7 +3,7 @@
 # Please read the next few lines and enter the correct values.
 
 # where to install GRPN
-PREFIX = /usr/local/
+PREFIX = /usr/local
 
 # What compiler should be used
 CC = gcc 
@@ -15,7 +15,7 @@ CC = gcc
 # add -DUSE_GNOME if you want to make grpn GNOME compliant.
 
 
-CFLAGS = -g -O2 -I/usr/X11/include  `pkg-config --cflags gtk+-2.0` -DGTK_VER_1_1
+CFLAGS = -g -O2 -I/usr/X11/include -DUSE_PANGO `pkg-config --cflags gtk+-2.0` -DGTK_VER_1_1
 
 DFLAGS =  -L/usr/X11/lib 
 
@@ -39,10 +39,10 @@ pure:	$(OBJS)
 	$(PURIFY) $(CC) $(DFLAGS) -o $@ $(OBJS) $(LIBS) 
 
 install:	grpn
-	mkdirhier $(PREFIX)/bin
+	mkdir -p $(PREFIX)/bin
 	cp grpn $(PREFIX)/bin
 	chmod 755 $(PREFIX)/bin/grpn
-	mkdirhier $(PREFIX)/man/man1
+	mkdir -p $(PREFIX)/man/man1
 	cp grpn.1 $(PREFIX)/man/man1
 	chmod 644 $(PREFIX)/man/man1/grpn.1
 
@@ -55,7 +55,7 @@ depend:
 
 
 clean:
-	rm -f core grpn *.o
+	rm -f core grpn *~ *.o
 
 include .depend
 

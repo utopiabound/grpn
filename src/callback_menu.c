@@ -87,7 +87,7 @@ void baseCmdCB(GtkWidget *w, gpointer clientData){
    /* TODO: set the toggles in the buttons */
    if(optWindow){
       gtk_toggle_button_set_state(GTK_TOGGLE_BUTTON(optHexBtn), 
-	 getBaseMode() == HEXIDECIMAL ? TRUE : FALSE);
+	 getBaseMode() == HEXADECIMAL ? TRUE : FALSE);
       gtk_toggle_button_set_state(GTK_TOGGLE_BUTTON(optDecBtn), 
 	 getBaseMode() == DECIMAL ? TRUE : FALSE);
       gtk_toggle_button_set_state(GTK_TOGGLE_BUTTON(optDecEngBtn), 

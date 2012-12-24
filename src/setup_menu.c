@@ -185,7 +185,7 @@ GtkWidget *setup_menu(GtkWidget *parent)
 	 gtk_menu_append(GTK_MENU(baseM), hexI);
 	 gtk_widget_show(hexI);
 	 gtk_signal_connect_object(GTK_OBJECT(hexI), "activate",
-				   GTK_SIGNAL_FUNC(baseCB), (gpointer)HEXIDECIMAL);
+				   GTK_SIGNAL_FUNC(baseCB), (gpointer)HEXADECIMAL);
 
       baseI = gtk_menu_item_new_with_label("Base");
       gtk_menu_append(GTK_MENU(optM), baseI);

@@ -238,7 +238,7 @@ char * printReal(Real *a){
                    };
                 }
                 break;
-            case HEXIDECIMAL:
+            case HEXADECIMAL:
                dd = a->num;
                i = 1;
                p = buf+REAL_PRINT_SIZE-1;

@@ -100,3 +100,10 @@ v1.3.2
 v1.3.3
    Bugfix: Convert "." button to "," if decimal operator is set
    to comma by locale settings.
+
+v1.3.4
+   If compiled with -DUSE_PANGO switch grpn uses the pango font 
+   library and Liberation Mono font as default. Can be 
+   overwritten with the -fn-disp command line option. 
+   Both keys "," and "." are always treated as decimal separator 
+   whatever the locale is.

@@ -72,7 +72,7 @@ main(int argc, char *argv[])
    GnomeAppBar *appbar;
 #endif
 
-   setlocale(LC_ALL, "");
+   setlocale(LC_ALL, "C");
 #ifdef USE_GNOME
    gnome_init("grpn", "1.0", argc, argv);
    gnome_app_new("grpn", "grpn");
@@ -148,7 +148,7 @@ main(int argc, char *argv[])
 	 } else if (0 == strcmp("oct", argv[n])){
              setBaseMode(OCTAL);
 	 } else if (0 == strcmp("hex", argv[n])){
-             setBaseMode(HEXIDECIMAL);
+             setBaseMode(HEXADECIMAL);
 	 } else {
              usage("Specify dec, eng, bin, oct or hex for -m.");
              exit(0);

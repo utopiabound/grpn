@@ -102,8 +102,8 @@ char *getModeDisplayString(){
       case DECIMAL_ENG:
          strcat(buf, "Decimal-Eng");
          break;
-      case HEXIDECIMAL:
-         strcat(buf, "Hexidecimal");
+      case HEXADECIMAL:
+         strcat(buf, "Hexadecimal");
          break;
       default:
          fprintf(stderr, "invalid Base mode\n");

@@ -119,8 +119,8 @@ void optionsCB(gpointer data){
 	 button = gtk_radio_button_new_with_label(group, "Hex");
 	 gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
          gtk_signal_connect(GTK_OBJECT(button), "toggled",
-                                   GTK_SIGNAL_FUNC(baseToggleCB), (gpointer)HEXIDECIMAL);
-	 gtk_toggle_button_set_state(GTK_TOGGLE_BUTTON(button), getBaseMode() == HEXIDECIMAL ? TRUE : FALSE);
+                                   GTK_SIGNAL_FUNC(baseToggleCB), (gpointer)HEXADECIMAL);
+	 gtk_toggle_button_set_state(GTK_TOGGLE_BUTTON(button), getBaseMode() == HEXADECIMAL ? TRUE : FALSE);
 	 gtk_widget_show(button);
          optHexBtn = button;
 

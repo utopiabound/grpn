@@ -1,15 +1,28 @@
+grpn (1.3.4-1) unstable; urgency=low
+
+  *  If compiled with -DUSE_PANGO switch grpn uses the pango font 
+     library and the Liberation Mono font as default. Can be 
+     overwritten with the -fn-disp command line option. 
+     Thanks to Jean-Pierre Demailly for implementing this new
+     feature.
+     Both keys "," and "." are always treated as decimal separator 
+     whatever the locale is.
+
+ -- Jens Getreu  <getreu@web.de>  Fri, 15 Dec 2011 19:05:33 +0200
+
 grpn (1.3.3-1) unstable; urgency=low
+
   *  Bugfix: Convert "." button to "," if decimal operator is set
      to comma by locale settings.
-   
- -- Jens Getreu  <getreu@web.de>  Fri, 6 May 2011 19:05:33 +0200grpn (1.3.2-1) unstable; urgency=low
+
+ -- Jens Getreu  <getreu@web.de>  Fri, 6 May 2011 19:05:33 +0200
 
 grpn (1.3.2-1) unstable; urgency=low
   *  Cntr-c copies the bottom of the stack to the Gnome-clipboard.
      (Cntr-v not implemented yet).
      Complex numbers are displayed with ";" instead of ",".
      "," is decimal separator in some locales.
-   
+
  -- Jens Getreu  <getreu@web.de>  Fri, 6 May 2011 19:05:33 +0200
 
 grpn (1.3.1-1) unstable; urgency=low

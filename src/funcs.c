@@ -809,7 +809,7 @@ void createMtrx(){
 
 int isDigitBase(char c){
    switch(getBaseMode()){
-      case HEXIDECIMAL:
+      case HEXADECIMAL:
          return IS_HEX(c);
          break;
       case DECIMAL_ENG:
@@ -837,7 +837,7 @@ Number * readNumber(char *line, int *nread){
 
    /* read in the number */
    switch(getBaseMode()){
-      case HEXIDECIMAL:
+      case HEXADECIMAL:
          *nread = 0;
          /* look for "0x" */
          if(0 == strncmp(line, "0x", 2)){

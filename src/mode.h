@@ -27,7 +27,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define BINARY      0x1
 #define OCTAL       0x2
 #define DECIMAL     0x4
-#define HEXIDECIMAL 0x8
+#define HEXADECIMAL 0x8
 
 #define DEGREES 0x10
 #define RADIANS 0x20

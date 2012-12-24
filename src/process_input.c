@@ -30,6 +30,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "editor.h"
 #include "error.h"
 #include "number.h"
+#include <locale.h>
 
 
 
@@ -184,6 +185,27 @@ void processInput(int ksym, int isCtrl, char bb, char chr){
       default:  /* catch everything that's left over */
 
          /* ascii characters */
+         
+         if (bb == '.') {
+      		//is the locale decimal seperator a comma?
+      		struct lconv * lc;
+      		lc=localeconv();
+      		if  (strcmp(lc->decimal_point,",")==0)
+      		{
+         		// then replace . by ,
+                	bb=',';
+      		}
+         } else if (bb == ',') {
+      		//is the locale decimal seperator a comma?
+      		struct lconv * lc;
+      		lc=localeconv();
+      		if  (strcmp(lc->decimal_point,".")==0)
+      		{
+         		// then replace , by .
+                	bb='.';
+      		}
+         }
+
          if((keysym >= GDK_KP_Space && keysym <= GDK_KP_9) ||
             (keysym >= GDK_space && keysym <= GDK_asciitilde)){
             insertEditor(bb);

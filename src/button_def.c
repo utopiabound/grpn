@@ -38,8 +38,8 @@ extern void radixCmdCB(GtkWidget *, gpointer);
 FuncInfo invisible1[] = {
    { "Modulo", "mod", "Remainder of division.",
       genericButtonCB, (void *)ModStack },
-   { "Hex", "hex", "Hexidecimal display mode.",
-      baseCmdCB, (void *)HEXIDECIMAL },
+   { "Hex", "hex", "Hexadecimal display mode.",
+      baseCmdCB, (void *)HEXADECIMAL },
    { "Dec", "dec", "Decimal display mode.",
       baseCmdCB, (void *)DECIMAL },
    //do not forget to add one item in

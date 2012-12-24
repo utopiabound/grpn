@@ -23,6 +23,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <stdlib.h>
 #include <string.h>
 #include <gtk/gtk.h>
+#include <gdk/gdk.h>
 #include <gdk/gdkkeysyms.h>
 
 #include "lcd.h"
@@ -33,14 +34,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "editor.h"
 #include "error.h"
 #include "undo.h"
-
-#define FONT1 "12x24"
-#define FONT2 "-*-courier-medium-r-*-*-24-*"
-#define FONT3 "-misc-fixed-medium-r-normal-*-20-*"
-#define FONT4 "10x20"
-#define FONT5 "-*-courier-medium-r-*-*-12-*"
-#define FONT6 "fixed"
-
 
 /* the amount of spacing we want around the display */
 #define BORDER 2 
@@ -57,16 +50,35 @@ int hiX0, hiX1, hiY1;
 int hiY0, hiX2, hiY2;
 
 /* font stuff */
-GdkFont *lcdFont;
-int fontW = 0;
-int fontH = 0;
-int fontD = 0;
+#ifdef USE_PANGO
+   PangoLayout *pango_layout;
+   PangoFontDescription *pango_desc;
+   PangoFontMetrics *pango_metrics;
+   PangoFontMap *pango_fontmap;
+   PangoContext *pango_context;
+   PangoFont *pango_font;
+   PangoFontMetrics *pango_metrics;
+   #define SHIFT 3
+#else
+   GdkFont *lcdFont;
+   #define SHIFT -1
+   #define FONT1 "12x24"
+   #define FONT2 "-*-courier-medium-r-*-*-24-*"
+   #define FONT3 "-misc-fixed-medium-r-normal-*-20-*"
+   #define FONT4 "10x20"
+   #define FONT5 "-*-courier-medium-r-*-*-12-*"
+   #define FONT6 "fixed"
+#endif
+
+int fontW;
+int fontH;
+int fontD;
 
 int lcdWidth = 0;
 int lcdHeight = 0;
 int lcdDisplayMode = LONG_DISPLAY;
 
-int lcdInitalized = 0;
+int lcdInitialized = 0;
 
 /* some callbacks */
 static gint lcdExposeCB(GtkWidget *widget, GdkEventExpose *event);
@@ -125,6 +137,26 @@ GtkWidget *setupLCD(GtkWidget *parent, int rows, int cols, char *font){
    lcdWidth = cols;
    lcdHeight = rows;
 
+#ifdef USE_PANGO
+   lcdDA = gtk_drawing_area_new();
+   pango_layout = gtk_widget_create_pango_layout(lcdDA, NULL);
+   pango_desc = pango_font_description_from_string(font?font:"Liberation Mono 16");
+   pango_fontmap = pango_cairo_font_map_get_default();
+   pango_context = pango_cairo_font_map_create_context( (PangoCairoFontMap *)pango_fontmap );
+   pango_font = pango_context_load_font(pango_context, pango_desc);
+   pango_metrics =
+      pango_context_get_metrics(pango_context, pango_desc, pango_language_get_default());
+
+   fontW = (pango_font_metrics_get_approximate_digit_width(pango_metrics))/PANGO_SCALE;
+   fontH = (pango_font_metrics_get_ascent(pango_metrics) + pango_font_metrics_get_descent(pango_metrics))/PANGO_SCALE;
+   fontD = pango_font_metrics_get_descent(pango_metrics)/PANGO_SCALE;
+
+   gtk_widget_modify_font(lcdDA, pango_desc);
+#else
+   fontW = 0;
+   fontH = 0;
+   fontD = 0;
+
    /* get a font for the main window */
    if(font != NULL){
       if(NULL == (lcdFont = gdk_font_load(font))){
@@ -151,6 +183,7 @@ GtkWidget *setupLCD(GtkWidget *parent, int rows, int cols, char *font){
    /* globals we use all over the place */
    fontH = lcdFont->ascent + lcdFont->descent;
    fontD = lcdFont->descent;
+#endif
 
    if(fontW == 0 || fontH == 0){
       fprintf(stderr, "Error: can not determine font dimentions.\n");
@@ -160,10 +193,12 @@ GtkWidget *setupLCD(GtkWidget *parent, int rows, int cols, char *font){
    wid = (2 * BORDER) + (lcdWidth * fontW);
    hgt = (2 * BORDER) + (lcdHeight * fontH);
 
+#ifndef USE_PANGO
    lcdDA = gtk_drawing_area_new();
+#endif
+
    gtk_drawing_area_size(GTK_DRAWING_AREA(lcdDA), wid, hgt);
    gtk_box_pack_start(GTK_BOX(parent), lcdDA, TRUE, TRUE, 0);
-   gtk_widget_show(lcdDA);
 
    /* Signals used to handle window ops */
    gtk_signal_connect(GTK_OBJECT(lcdDA), "expose_event",
@@ -211,6 +246,7 @@ GtkWidget *setupLCD(GtkWidget *parent, int rows, int cols, char *font){
       GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK);
 
    GTK_WIDGET_SET_FLAGS(lcdDA, GTK_CAN_FOCUS);
+   gtk_widget_show(lcdDA);
    gtk_widget_grab_focus(lcdDA);
 
 
@@ -369,6 +405,10 @@ void drawStackLCD(){
    int curPos;
    int strt, stop;
    GdkGC *drawgc;
+#ifdef USE_PANGO
+   PangoRectangle rect;
+   int pango_pos;
+#endif
 
    /* draw the stack */
    for(i=0; i<lcdHeight; i++){
@@ -382,12 +422,24 @@ void drawStackLCD(){
          stop = lcdWidth;
       }
       if(stop-strt){
+#ifdef USE_PANGO
+         pango_layout_index_to_pos(pango_layout, strt, &rect);
+         pango_pos = rect.x / PANGO_SCALE;
+         gdk_window_clear_area(lcdDA->window, 
+            pango_pos + BORDER, i*fontH + BORDER,
+            2*fontW*(stop-strt), fontH);
+         pango_layout_set_text(pango_layout,  &lcdText[i][strt], stop-strt);
+         gdk_draw_layout(lcdDA->window, lcdGC,
+            pango_pos + BORDER + SHIFT, i*fontH + BORDER,
+	    pango_layout);
+#else
          gdk_window_clear_area(lcdDA->window, 
             strt*fontW + BORDER, i*fontH + BORDER,
             fontW*(stop-strt), fontH);
          gdk_draw_text(lcdDA->window, lcdFont, lcdGC,
             strt*fontW + BORDER, (i+1)*fontH - fontD + BORDER,
             &lcdText[i][strt], stop-strt);
+#endif
       }
 
       /* draw the highlighted section of the line */
@@ -396,14 +448,28 @@ void drawStackLCD(){
          if(strt > lcdWidth) strt = lcdWidth;
 	 stop = hiX2+1;
          if(stop > lcdWidth) stop = lcdWidth;
-         if(stop-strt){
-            
+         if(stop-strt){            
+#ifdef USE_PANGO
+            pango_layout_index_to_pos(pango_layout, strt, &rect);
+            pango_pos = rect.x / PANGO_SCALE;
+            gdk_window_clear_area(lcdDA->window, 
+               pango_pos + BORDER, i*fontH + BORDER,
+               2*fontW*(stop-strt), fontH);
+            gdk_draw_rectangle(lcdDA->window, lcdGC, TRUE,
+               pango_pos + BORDER + SHIFT, i*fontH + BORDER,
+               fontW*(stop-strt), fontH);
+            pango_layout_set_text(pango_layout,  &lcdText[i][strt], stop-strt);
+            gdk_draw_layout(lcdDA->window, lcdHighlightGC,
+               strt*fontW + BORDER + SHIFT, i*fontH + BORDER,
+	       pango_layout);
+#else
             gdk_draw_rectangle(lcdDA->window, lcdGC, TRUE,
                strt*fontW + BORDER, i*fontH + BORDER,
                fontW*(stop-strt), fontH);
 	    gdk_draw_text(lcdDA->window, lcdFont, lcdHighlightGC,
 	       strt*fontW + BORDER, (i+1)*fontH - fontD + BORDER,
 	       &lcdText[i][strt], stop-strt);
+#endif
          }
       }
 
@@ -416,12 +482,24 @@ void drawStackLCD(){
          strt = lcdWidth;
       }
       if(stop-strt){
+#ifdef USE_PANGO
+         pango_layout_index_to_pos(pango_layout, strt, &rect);
+         pango_pos = rect.x / PANGO_SCALE;
+         gdk_window_clear_area(lcdDA->window, 
+            pango_pos + BORDER, i*fontH + BORDER,
+            2*fontW*(stop-strt), fontH);
+         pango_layout_set_text(pango_layout,  &lcdText[i][strt], stop-strt);
+         gdk_draw_layout(lcdDA->window, lcdGC,
+            pango_pos + BORDER + SHIFT, i*fontH + BORDER,
+	    pango_layout);
+#else
 	 gdk_window_clear_area(lcdDA->window, 
 	    strt*fontW + BORDER, i*fontH + BORDER,
 	    fontW*(stop-strt), fontH);
-	 gdk_draw_text(lcdDA->window, lcdFont, lcdGC,
-	    strt*fontW + BORDER, (i+1)*fontH - fontD + BORDER,
-	    &lcdText[i][strt], stop-strt);
+         gdk_draw_text(lcdDA->window, lcdFont, lcdGC,
+            strt*fontW + BORDER, (i+1)*fontH - fontD + BORDER,
+            &lcdText[i][strt], stop-strt);
+#endif
       }
    }
 
@@ -447,16 +525,35 @@ void drawStackLCD(){
          0==hiX1 && lcdHeight-1>=hiY1 && lcdHeight-1<=hiY2))
       {
          gdk_draw_line(lcdDA->window, lcdHighlightGC,
-            BORDER - 1, (lcdHeight-1) * fontH + BORDER,
-            BORDER - 1, lcdHeight * fontH - 1 + BORDER);
+            BORDER + SHIFT, (lcdHeight-1) * fontH + BORDER,
+            BORDER + SHIFT, lcdHeight * fontH - 1 + BORDER);
       }
 
       /* draw the cursor */
+#ifdef USE_PANGO
+      pango_layout_index_to_pos(pango_layout, curPos, &rect);
+      pango_pos = rect.x / PANGO_SCALE + SHIFT + BORDER;
       gdk_draw_line(lcdDA->window, drawgc,
-         fontW * curPos - 1 + BORDER, (lcdHeight-1) * fontH + BORDER,
-         fontW * curPos - 1 + BORDER, lcdHeight * fontH - 1 + BORDER);
-
+         pango_pos, (lcdHeight-1) * fontH + BORDER,
+         pango_pos, lcdHeight * fontH - 1 + BORDER);
+      /* Flush GDK display, seems to be needed in certain environments */
+      gdk_flush();
+   } else {
+      pango_layout_index_to_pos(pango_layout, strt, &rect);
+      pango_pos = rect.x / PANGO_SCALE + SHIFT + BORDER;
+      if (pango_pos > lcdDA->allocation.width - BORDER && lcdWidth > 6) {
+	 lcdWidth -= 1;
+         clearLCDwindow();
+         calcStackLCD();
+         drawStackLCD();
+      }
    }
+#else
+      gdk_draw_line(lcdDA->window, drawgc,
+         fontW * curPos + SHIFT + BORDER, (lcdHeight-1) * fontH + BORDER,
+         fontW * curPos + SHIFT + BORDER, lcdHeight * fontH - 1 + BORDER);
+   }
+#endif
 }
 
 
@@ -478,10 +575,10 @@ void lcdResize(){
    width = lcdDA->allocation.width;
    height = lcdDA->allocation.height;
 
-   lcdWidth = (width - 2*BORDER) / fontW;
+   lcdWidth = (width - 2 * BORDER) / fontW;
    if(lcdWidth < 0) lcdWidth = 0;
 
-   lcdHeight = (height - 2*BORDER) / fontH;
+   lcdHeight = (height - 2 * BORDER) / fontH;
    if(lcdHeight < 0) lcdHeight = 0;
  
    /* free the old mem */
@@ -529,7 +626,7 @@ int getLCDDispMode(){
 static gint lcdExposeCB(GtkWidget *widget, GdkEventExpose *event){
    GtkStyle *style;
 
-   if(lcdInitalized == 0){
+   if(lcdInitialized == 0){
 
       style = gtk_widget_get_style(widget);
 
@@ -539,7 +636,7 @@ static gint lcdExposeCB(GtkWidget *widget, GdkEventExpose *event){
       lcdHighlightGC = style->bg_gc[GTK_STATE_NORMAL];
 
       lcdResize();
-      lcdInitalized = 1;
+      lcdInitialized = 1;
 
    }
 
@@ -553,7 +650,7 @@ static gint lcdExposeCB(GtkWidget *widget, GdkEventExpose *event){
 
 static gint lcdResizeCB(GtkWidget *widget, GdkEventConfigure *event){
 
-   if(lcdInitalized != 0) lcdResize();
+   if(lcdInitialized != 0) lcdResize();
 
    return TRUE;
 }

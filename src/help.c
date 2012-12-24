@@ -34,9 +34,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 \n\
 By: Paul Wilkins\n\
     paul.wilkins at analog com\n\
-    fix_locale.dpatch by Wartan Hachaturow <wart at debian.org>\n\
-    add_includes.dpatch by Michael Bienia <geser at ubuntu.com>\n\
+    Fix_locale.dpatch by Wartan Hachaturow <wart at debian.org>\n\
+    Add_includes.dpatch by Michael Bienia <geser at ubuntu.com>\n\
     gtk2.dpatch by Barry deFreese <bdefreese at debian.org>\n\
+    Support for Pango-fonts by Jean-Pierre Demailly.\n\
     Changes since version 1.1.2-3: Jens Getreu <getreu at web.de>\n\
 \n\
 "
