@@ -19,23 +19,25 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <gtk/gtk.h>
 
 #include "help.h"
 #include "funcs.h"
 #include "buttons.h"
 #include "license.h"
+#include "version.h"
+
 
 #define ABOUT_TXT \
-"\n\
-GRPN  v1.2\n\
-\n\
-GRPN is a graphical reverse polish notation (RPN) calculator.\n\
+"GRPN is a graphical reverse polish notation (RPN) calculator.\n\
 \n\
 By: Paul Wilkins\n\
     paul.wilkins at analog com\n\
-    Changes since version 1.1.3: Jens Getreu\n\
-    getreu at web de\n\
+    fix_locale.dpatch by Wartan Hachaturow <wart at debian.org>\n\
+    add_includes.dpatch by Michael Bienia <geser at ubuntu.com>\n\
+    gtk2.dpatch by Barry deFreese <bdefreese at debian.org>\n\
+    Changes since version 1.1.2-3: Jens Getreu <getreu at web.de>\n\
 \n\
 "
 
@@ -137,7 +139,7 @@ void popup_window(GtkWidget **dialog, char *txt, char *title){
       gtk_signal_connect(GTK_OBJECT(*dialog), "destroy",
                         GTK_SIGNAL_FUNC(gtk_widget_destroyed),
                         dialog);
-#ifdef GTK_VER_2_0
+#ifdef GTK_VER_1_1
       gtk_container_set_border_width(GTK_CONTAINER(*dialog), 5); 
 #else
       gtk_container_border_width(GTK_CONTAINER(*dialog), 5); 
@@ -151,7 +153,7 @@ void popup_window(GtkWidget **dialog, char *txt, char *title){
       gtk_widget_show(vbox);
 
       scrolled_win = gtk_scrolled_window_new (NULL, NULL);
-#ifdef GTK_VER_2_0
+#ifdef GTK_VER_1_1
       gtk_container_set_border_width(GTK_CONTAINER(scrolled_win), 5); 
 #else
       gtk_container_border_width(GTK_CONTAINER(scrolled_win), 5); 
@@ -166,7 +168,7 @@ void popup_window(GtkWidget **dialog, char *txt, char *title){
       gtk_signal_connect(GTK_OBJECT(label), "destroy",
                           GTK_SIGNAL_FUNC(gtk_widget_destroyed), &label);
       gtk_label_set_justify(GTK_LABEL(label), GTK_JUSTIFY_LEFT);
-#ifdef GTK_VER_2_0
+#ifdef GTK_VER_1_1
       gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolled_win), label);
 #else
       gtk_container_add(GTK_CONTAINER(scrolled_win), label);
@@ -193,9 +195,17 @@ void popup_window(GtkWidget **dialog, char *txt, char *title){
  
 
 void license_popup(){
+   char *htxt;
    static GtkWidget *dialog = NULL;
  
-   popup_window(&dialog, LICENSE_TXT, "License");
+   if(NULL == (htxt = (char*)malloc((10000)*sizeof(char)))){
+      perror("help_popup: malloc");
+      return;
+   } else {
+      strcpy(htxt, LICENSE_TXT);
+   }
+   popup_window(&dialog, htxt, "License");
+   free(htxt);
 }
  
  
@@ -213,7 +223,7 @@ void help_popup(){
    for(i=0; i<NumFunctionRows; i++){
       cmds += rowinf[i].numBtns;
    }
-   if(NULL == (htxt = (char*)malloc((3000+cmds*60)*sizeof(char)))){
+   if(NULL == (htxt = (char*)malloc((10000+cmds*60)*sizeof(char)))){
       perror("help_popup: malloc");
       return;
    } else {
@@ -239,8 +249,18 @@ void help_popup(){
 }
 
 void about_popup(){
+   char *htxt;
    static GtkWidget *dialog = NULL;
  
-   popup_window(&dialog, ABOUT_TXT, "About");
+   if(NULL == (htxt = (char*)malloc((10000)*sizeof(char)))){
+      perror("help_popup: malloc");
+      return;
+   } else {
+      strcpy(htxt, GRPN_VERSION);
+      strcat(htxt, ABOUT_TXT);
+   }
+   popup_window(&dialog, htxt, "About");
+   free(htxt);
+ 
 }
 

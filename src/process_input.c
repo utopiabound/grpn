@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 /* process_input.c  by Paul Wilkins 3/21/97 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 
@@ -173,13 +174,6 @@ void processInput(int ksym, int isCtrl, char bb, char chr){
          /* ascii characters */
          if((keysym >= GDK_KP_Space && keysym <= GDK_KP_9) ||
             (keysym >= GDK_space && keysym <= GDK_asciitilde)){
-            /*
-            // interpret , as . to cope with international
-            // number keypads.
-            if (bb == ',') {
-                bb='.';
-            } 
-            */
             insertEditor(bb);
          }
 

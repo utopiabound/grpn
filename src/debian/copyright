@@ -1,0 +1,14 @@
+This package was debianized by Robert S. Edmonds <edmonds@debian.org> on
+Mon, 22 Mar 1999 19:41:45 -0500.
+
+It was downloaded from:
+ftp://wilkins.ne.mediaone.net/pub/grpn-1.1.1.tar.gz
+
+Upstream Author: Paul Wilkins <paul.wilkins@analog.com>
+
+Copyright: Copyright (C) 2000,2002  Paul Wilkins <paul.wilkins@analog.com>
+
+License:
+GPL (GNU GPL license v2 included in source code)
+The GNU GPL may be viewed on Debian GNU/Linux systems in
+/usr/share/common-licenses/GPL-2

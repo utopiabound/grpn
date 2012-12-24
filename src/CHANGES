@@ -80,3 +80,13 @@ v1.1.7.4
 v1.2
    Compiles against gt+-2.0. Locale determines the decimal separator
    point or comma now.
+
+v1.3.0
+   This release is based on a merge of the sources 1.1.7.4
+   and the debian patches 1.1.2-3. 
+   The branch 1.2 is abandoned. 
+
+v1.3.1
+   Basemode defaults now to dec like the original version 1.1.2.
+   A new commandline option -bm dec|eng|bin|oct|hex allows to
+   change the default value for basemode.

@@ -8,11 +8,6 @@ PREFIX = /usr/local/
 # What compiler should be used
 CC = gcc 
 
-# Where to find the gtk-config script
-GTK_DIR =
-#GTK_DIR = /loc/libs/gtk+-1.0.6/bin/
-
-
 # NOTE:
 #
 # add -DGTK_VER_1_1 to the CFLAGS if you are using GTK version 1.1.0 or higher
@@ -20,9 +15,9 @@ GTK_DIR =
 # add -DUSE_GNOME if you want to make grpn GNOME compliant.
 
 
-CFLAGS = -g -O2 -I/usr/include/X11  `$(GTK_DIR)pkg-config --cflags gtk+-2.0` -DGTK_VER_2_0 
+CFLAGS = -g -O2 -I/usr/X11/include  `pkg-config --cflags gtk+-2.0` -DGTK_VER_1_1
 
-DFLAGS =  -L/usr/lib/X11 
+DFLAGS =  -L/usr/X11/lib 
 
 # end of user configurable section
 
@@ -35,12 +30,7 @@ OBJS = test_gtk_ver.o real.o complex.o matrix.o number.o \
 	setup_buttons.o callback_buttons.o editor.o \
 	error.o help.o mode.o undo.o
 
-
-
-LIBS   = `$(GTK_DIR)pkg-config --libs gtk+-2.0` -lX11 -lm 
-
-
-
+LIBS   = `pkg-config --libs gtk+-2.0` -lX11 -lm
 
 grpn:	$(OBJS)
 	$(CC) $(DFLAGS) -o $@ $(OBJS) $(LIBS) 

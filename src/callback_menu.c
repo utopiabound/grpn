@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 /* callback_menu.h  by Paul Wilkins 3/15/97 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <gtk/gtk.h>
 
 #include "menu.h"

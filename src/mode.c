@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 /* setup mode.c  by Paul Wilkins  2/8/98 */
 
 #include <stdio.h>
+#include <string.h>
 #include <gtk/gtk.h>
 
 #include "mode.h"
@@ -30,7 +31,7 @@ GtkWidget *ModeDisplay = NULL;
 
 int radixMode = RADIANS;
 int polarMode = RECTANGULAR;
-int baseMode = DECIMAL_ENG;
+int baseMode = DECIMAL;
 
 int getRadixMode(){
    return radixMode;

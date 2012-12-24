@@ -1,0 +1,16 @@
+Source: grpn
+Section: math
+Priority: extra
+Maintainer: Wartan Hachaturow <wart@debian.org>
+Build-Depends: debhelper (>= 5), dpatch, libgtk2.0-dev
+Standards-Version: 3.8.0
+
+Package: grpn
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: GTK+ reverse polish notation calculator
+ grpn is an RPN calculator which uses the GTK+ widgets. It
+ works with real and complex numbers, has 4 different radix
+ modes, supports general math functions along with logarithmic
+ and trigonometric functions.  Calculator stack is only limited
+ by free memory.

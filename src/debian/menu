@@ -1,0 +1,7 @@
+?package(grpn):\
+  needs="X11"\
+  section="Applications/Science/Mathematics"\
+  title="grpn"\
+  hints="Calculators"\
+  command="/usr/bin/grpn"\
+  icon="/usr/share/pixmaps/grpn.xpm"

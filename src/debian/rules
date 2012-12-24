@@ -1,0 +1,78 @@
+#!/usr/bin/make -f
+# debian/rules for grpn, GNU Copyright 2001 Brian Russo
+# Derived from works of Craig Small, Joey Hess, and Christoph Lameter
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+PACKAGE=grpn
+
+include /usr/share/dpatch/dpatch.make
+
+build: build-stamp
+build-stamp: patch
+	dh_testdir
+	$(MAKE)
+	touch build-stamp
+
+clean: clean1 unpatch
+
+clean1:	
+	dh_testdir
+	dh_testroot
+	$(MAKE) clean
+
+	dh_clean
+
+install: install-stamp
+install-stamp: build-stamp
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	dh_installdirs
+	dh_desktop -pgrpn
+	install -D -m644 debian/grpn.desktop $(CURDIR)/debian/$(PACKAGE)/usr/share/applications/grpn.desktop
+	install -o root -m 0755 $(CURDIR)/$(PACKAGE) $(CURDIR)/debian/$(PACKAGE)/usr/bin/
+	install -d debian/grpn/usr/share/pixmaps
+	cp debian/grpn.xpm debian/grpn/usr/share/pixmaps/grpn.xpm
+
+# Build architecture-independent files here.
+binary-indep: build install
+# We have nothing to do by default.
+
+# Build architecture-dependent files here.
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	dh_installdocs
+	dh_installmenu
+	dh_installchangelogs CHANGES 
+	dh_installman
+	dh_link
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+source diff:                                                                  
+	@echo >&2 'source and diff are obsolete - use dpkg-source -b'; false
+
+binary: binary-indep binary-arch
+
+# And now the simple things for dpatch. Here we only apply/unapply the patches.
+
+patch: patch-stamp
+
+patch-stamp:
+	dpatch apply-all
+	touch patch-stamp
+
+unpatch:
+	dpatch deapply-all
+	rm -rf patch-stamp debian/patched
+
+.PHONY: build clean binary-indep binary-arch binary patch unpatch clean1

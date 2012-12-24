@@ -19,8 +19,9 @@
 grpn \- GTK+ reverse polish notation calculator
 .SH SYNOPSIS
 .B grpn
-.B " [-fn \fIfont\fR] [-btn-fn \fIfont\fR] [-disp-fn \fIfont\fR] "
-.B " [-rows \fIn\fR] [-cols \fIn\fR] [-b] "
+.B "[-fn \fIfont\fR] [-btn-fn \fIfont\fR] [-disp-fn \fIfont\fR]"
+.B "[-rows \fIn\fR] [-cols \fIn\fR] [-b]" 
+.B "[-bm \fIdec\fR|\fIeng\fR|\fIbin\fR|\fIoct\fR|\fIhex\fR]"
 .br
 .SH DESCRIPTION
 .br
@@ -38,6 +39,10 @@ Cartesian or polar form.
 .TP
 .B "  -b"
 Don't draw the buttons.
+.TP
+.B "  -bm \fIbasemode\fR"
+Start in basemode: \fIdec\fR, \fIeng\fR, \fIbin\fR, 
+\fIoct\fR, or \fIhex\fR.
 .TP
 .B "  -rows \fIn\fR"
 Display (a minimum of) n rows.

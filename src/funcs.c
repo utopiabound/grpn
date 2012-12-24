@@ -20,7 +20,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 /* funcs.c  by Paul Wilkins */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+#include <locale.h>
 #include <gtk/gtk.h>
 
 #include "stack.h"
@@ -43,8 +45,11 @@ int isDigitBase(char c);
 void readLine(char *line){
    int pos;  /* the number of characters in the number */
    Number *n1;
+   struct lconv *locale;
+   
+   locale = localeconv();
 
-   if((*line != '"' && *line != '\'') && (isDigitBase(*line) || *line == '-' || *line == '+' || *line == '.')){
+   if((*line != '"' && *line != '\'') && (isDigitBase(*line) || *line == '-' || *line == '+' || *line == *(locale->decimal_point))){
 
       /* try to read in a number */
       if(NULL == (n1 = readNumber(line, &pos))){
@@ -855,6 +860,7 @@ Number * readNumber(char *line, int *nread){
 	 if(1 != sscanf(line, "%lg%n", &num, nread)){
 	    return NULL;
 	 }
+
 	 break;
       case OCTAL:
          *nread = 0;

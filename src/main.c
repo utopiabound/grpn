@@ -23,6 +23,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
 #ifdef USE_GNOME
 #include <gnome.h>
 #endif
@@ -39,7 +41,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 void usage(char *str){
    fprintf(stderr, "Error: %s\n", str);
-   fprintf(stderr, "Usage: grpn [-fn font] [-btn-fn font] [-disp-fn font]\n");
+   fprintf(stderr, "Usage: grpn [-fn font] [-btn-fn font] [-disp-fn font] [-bm basemode]\n");
    fprintf(stderr, "            [-rows n] [-cols n] [-b]\n");
    fprintf(stderr, "   -b:        Don't draw the buttons.\n");
    fprintf(stderr, "   -rows:     Display (a minimum of) \"n\" rows.\n");
@@ -47,6 +49,7 @@ void usage(char *str){
    fprintf(stderr, "   -btn-fn:   Use \"font\" for the buttons and menu-bar.\n");
    fprintf(stderr, "   -disp-fn:  Use \"font\" for the main display.\n");
    fprintf(stderr, "   -fn:       Specifies both -btn-fn and -disp-fn.\n");
+   fprintf(stderr, "   -bm:        basemode: dec, eng, bin, oct or hex.\n");
 }
 
    GtkWidget *main_w;
@@ -69,6 +72,7 @@ main(int argc, char *argv[])
    GnomeAppBar *appbar;
 #endif
 
+   setlocale(LC_ALL, "");
 #ifdef USE_GNOME
    gnome_init("grpn", "1.0", argc, argv);
    gnome_app_new("grpn", "grpn");
@@ -129,6 +133,26 @@ main(int argc, char *argv[])
          }
       } else if(0 == strcmp("-b", argv[n])){
          drawButtons = 0;
+      } else if(0 == strcmp("-bm", argv[n])){
+         n++;
+         if(n >= argc){
+            usage("Missing required argument for -m.");
+            exit(0);
+         }
+         if (0 == strcmp("dec", argv[n])){
+             setBaseMode(DECIMAL);
+	 } else if (0 == strcmp("eng", argv[n])){
+             setBaseMode(DECIMAL_ENG);
+	 } else if (0 == strcmp("bin", argv[n])){
+             setBaseMode(BINARY);
+	 } else if (0 == strcmp("oct", argv[n])){
+             setBaseMode(OCTAL);
+	 } else if (0 == strcmp("hex", argv[n])){
+             setBaseMode(HEXIDECIMAL);
+	 } else {
+             usage("Specify dec, eng, bin, oct or hex for -m.");
+             exit(0);
+         }
       } else {
          usage("Unknown Argument.");
          exit(0);
@@ -156,8 +180,9 @@ main(int argc, char *argv[])
          exit(0);
       }
       new_style = gtk_style_copy(default_style);
-      //new_style->font = new_font;
-      //gtk_widget_set_default_style(new_style);
+      new_style->font_desc = new_font;
+/* BDD - No longer in Gtk2.x */
+/*      gtk_widget_set_default_style(new_style); */
    }
    
 

@@ -1,0 +1,97 @@
+grpn (1.3.1-1) unstable; urgency=low
+
+  * Basemode defaults now to dec like the original version 1.1.2.
+    A new commandline option -bm dec|eng|bin|oct|hex allows to
+    change the default value for basemode.
+
+ -- Jens Getreu  <getreu@web.de>  Fri, 29 Apr 2011 12:01:19 +0200
+
+grpn (1.3.0-1) unstable; urgency=low
+
+  * Merge of debian patches grpn-1.1.2-3
+    and sources grpn-1.7.4.1 (getreu.net) and
+    including the following enhancements:
+    + Introduced DECIMAL_ENG mode for engineer notation.
+    + The complex function can now not only create complex numbers
+      but also decompose them.
+    + new function "mod"=remainder introduced.
+
+ -- Jens Getreu  <getreu@web.de>  Wed, 27 Apr 2011 20:19:22 +0200
+
+grpn (1.1.2-3) unstable; urgency=low
+
+  * "Thank you, Barry" release
+  * Changes by Barry deFreese <bdefreese@debian.org>:
+  * Build with Gtk2. (Closes: #515316).
+    + Change libgtk1.2-dev build-dep to libgtk2.0-dev.
+    + 03_gtk2.dpatch.
+  * Added .desktop file (Closes: #375515)
+    + Thanks to Vassilis Pandis.
+  * debian/patches/02_add_includes.dpatch: add missing includes
+    + Thanks to Michael Bienia.
+  * Make clean not ignore errors.
+  * Add ${misc:Depends} for debhelper package.
+  * Quote strings in menu file.
+  * Add appropriate copyright holder to debian/copyright.
+  * Version path to GPL license. (GPL-2).
+  * Bump debhelper build-dep to >= 5.
+  * Move DH_COMPAT from rules to debian/compat and set to 5.
+  * Bump Standards Version to 3.8.0.
+    + Menu policy transition.
+
+ -- Wartan Hachaturow <wart@debian.org>  Mon, 02 Mar 2009 15:22:22 +0300
+
+grpn (1.1.2-2) unstable; urgency=low
+
+  * Fixed problems with locale (Closes: #253415)
+  * Extended the description (Closes: #209527)
+
+ -- Wartan Hachaturow <wart@debian.org>  Sun, 17 Oct 2004 16:04:58 +0400
+
+grpn (1.1.2-1) unstable; urgency=low
+
+  * Adopted (Closes: #174112)
+  * New upstream version
+  * Upstream version now has its own manpage, replace the Debian one.
+  * Binaries and manual pages no more get installed in /usr/X11R6, since
+    the package doesn't use imake.
+  * Removed emacs cruft from changelog.
+  * Changed build depends to remove gnome-dev, since package gets compiled 
+    without gnome toolbar support.
+
+ -- Wartan Hachaturow <wart@debian.org>  Wed, 25 Dec 2002 11:47:07 +0300
+
+grpn (1.1.1-3) unstable; urgency=low
+
+  * Adopted (Closes: #87153)
+  * Added hint (Closes: #80029)
+  * Added a manpage
+  * Added build-depends (Closes: #84488)
+
+ -- Brian Russo <wolfie@debian.org>  Sat, 24 Feb 2001 01:44:59 -1000
+
+grpn (1.1.1-2) unstable; urgency=low
+
+  * Recompiled with latest libraries.
+  * Upgraded Standards-Version.
+
+ -- Robert S. Edmonds <edmonds@debian.org>  Mon, 16 Oct 2000 23:36:50 +0000
+
+grpn (1.1.1-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Robert S. Edmonds <stu@novare.net>  Wed,  9 Aug 2000 14:49:24 -0400
+
+grpn (1.1.0-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Robert S. Edmonds <stu@novare.net>  Sat, 12 Jun 1999 16:24:01 -0400
+
+grpn (1.0.4-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Robert S. Edmonds <stu@novare.net>  Mon, 22 Mar 1999 19:41:45 -0500
+

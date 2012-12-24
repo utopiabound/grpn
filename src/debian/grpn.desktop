@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Grpn Calculator
+GenericName=Calculator
+Comment=A reverse polish notation calculator
+Exec=grpn
+Icon=grpn
+Type=Application
+Categories=Calculator;Utility;

@@ -35,8 +35,6 @@ extern void baseCmdCB(GtkWidget *, gpointer);
 extern void cmodeCmdCB(GtkWidget *, gpointer);
 extern void radixCmdCB(GtkWidget *, gpointer);
 
-
-
 FuncInfo invisible1[] = {
    { "Modulo", "mod", "Remainder of division.",
       genericButtonCB, (void *)ModStack },
@@ -135,8 +133,6 @@ FuncInfo num123[] = {
    { "ln", "ln", "Natural log (log base e).",
       genericButtonCB, (void *)LnStack }
 };
-
-
 FuncInfo num0[] = {
    { "0", NULL, NULL, enterNumCB, (void *)'0' },
    { ".", NULL, NULL, enterNumCB, (void *)'.' },
