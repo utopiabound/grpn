@@ -1,3 +1,9 @@
+grpn (1.3.3-1) unstable; urgency=low
+  *  Bugfix: Convert "." button to "," if decimal operator is set
+     to comma by locale settings.
+   
+ -- Jens Getreu  <getreu@web.de>  Fri, 6 May 2011 19:05:33 +0200grpn (1.3.2-1) unstable; urgency=low
+
 grpn (1.3.2-1) unstable; urgency=low
   *  Cntr-c copies the bottom of the stack to the Gnome-clipboard.
      (Cntr-v not implemented yet).

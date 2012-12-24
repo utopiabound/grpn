@@ -96,3 +96,7 @@ v1.3.2
    (Cntr-v not implemented yet).
    Complex numbers are displayed with ";" instead of ",".
    "," is decimal separator in some locales.
+
+v1.3.3
+   Bugfix: Convert "." button to "," if decimal operator is set
+   to comma by locale settings.
