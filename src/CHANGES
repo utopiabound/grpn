@@ -1,0 +1,31 @@
+
+v1.0
+   Initial Release.
+
+v1.0.1:
+   Compile with GTK versions 1.0.x.
+
+v1.0.2:
+   Added undo.  Up to 10 commands can be undone. 
+   Trap the Ctrl-c keypress and quit.
+
+v1.0.3:
+   Map the ^ key to the x^y function.
+
+v1.0.4
+   Handle keys in number pad correctly.
+   Fix memory leak in asin and atan of complex numbers.
+   Fix malloc/ free errors introduced with the undo feature.
+
+v1.1.0
+   Add hex, dec, oct, and bin commands.
+   Add rip command.
+   Command line args to set font and window size.
+   Fix possible memory corruption bug when displaying matrices.
+
+v1.1.1
+   Force keyboard entry to be interpreted as a command when
+      prefixed with a single or double quote.
+
+v1.1.2
+   Add db10 and db20 commands.

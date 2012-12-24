@@ -1,0 +1,41 @@
+
+GRPN Version 1.1.2
+
+By Paul Wilkins
+
+GRPN is a RPN calculator for the X Window system built using
+the GIMP Toolkit (GTK).
+
+GRPN works with real numbers, complex numbers, matrices, and
+complex matrices.  Numbers can be displayed in 4 different
+radix modes, and complex numbers can be displayed in either
+Cartesian or polar form.
+
+GRPN is copyrighted under the terms of the GNU General Public
+License.  See the file LICENSE for more details.
+
+
+To build GRPN:
+
+1) Edit the Makefile to tell the compiler where to find the X
+   and GTK headers and libraries if you do not have the 
+   gtk-config script properly installed.  Most systems will not
+   need this.
+
+2) Run make.  
+
+3) Copy the executable, grpn, to it's final installation directory,
+   for example /usr/local/bin.
+
+
+
+GRPN can be found (ftp) at the following locations:
+ibiblio.org /pub/Linux/apps/math/calc
+lashwhip.com /pub
+
+
+That's it.  Good Luck.
+
+Paul
+paul.wilkins@analog.com
+

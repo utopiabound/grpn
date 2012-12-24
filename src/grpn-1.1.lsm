@@ -1,0 +1,16 @@
+Begin4
+Title:           grpn
+Version:         1.1.2
+Entered-date:    Apr. 3, 2002
+Description:     A RPN calcuator for real and complex numbers with a 
+                 GTK / X11 GUI.
+Keywords:        math RPN calculator
+Author:          paul.wilkins@analog.com (Paul Wilkins)
+Maintained-by:   paul.wilkins@analog.com (Paul Wilkins)
+Primary-site:    ftp://lashwhip.com/pub
+                 45kB grpn-1.1.2.tar.gz
+Alternate-site:  ftp://ibiblio.org/pub/Linux/apps/math/calc
+                 45kB grpn-1.1.2.tar.gz
+Copying-policy:  GPL
+End
+

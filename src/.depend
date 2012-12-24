@@ -1,0 +1,36 @@
+button_def.o: button_def.c buttons.h funcs.h editor.h lcd.h mode.h \
+ undo.h
+callback_buttons.o: callback_buttons.c buttons.h funcs.h editor.h \
+ error.h lcd.h
+callback_menu.o: callback_menu.c menu.h lcd.h mode.h funcs.h help.h \
+ complex.h typedefs.h number.h real.h matrix.h options.h
+circle.o: circle.c
+complex.o: complex.c complex.h typedefs.h real.h number.h matrix.h \
+ constant.h mode.h lcd.h
+constant.o: constant.c real.h typedefs.h complex.h
+editor.o: editor.c editor.h funcs.h mode.h
+error.o: error.c error.h stack.h typedefs.h
+funcs.o: funcs.c stack.h typedefs.h number.h real.h complex.h matrix.h \
+ funcs.h undo.h constant.h editor.h run_cmd.h error.h mode.h
+help.o: help.c help.h funcs.h buttons.h license.h
+lcd.o: lcd.c lcd.h mode.h number.h typedefs.h real.h complex.h \
+ matrix.h stack.h process_input.h editor.h error.h undo.h
+main.o: main.c icon_bitmap stack.h typedefs.h menu.h mode.h lcd.h \
+ undo.h buttons.h funcs.h constant.h
+matrix.o: matrix.c matrix.h typedefs.h number.h real.h complex.h \
+ error.h constant.h
+mode.o: mode.c mode.h number.h typedefs.h real.h complex.h matrix.h
+number.o: number.c number.h typedefs.h real.h complex.h matrix.h \
+ mode.h constant.h error.h
+options.o: options.c options.h mode.h lcd.h
+process_input.o: process_input.c process_input.h funcs.h lcd.h \
+ editor.h error.h
+real.o: real.c real.h typedefs.h mode.h constant.h
+run_cmd.o: run_cmd.c buttons.h funcs.h editor.h error.h
+setup_buttons.o: setup_buttons.c buttons.h funcs.h editor.h
+setup_menu.o: setup_menu.c menu.h mode.h options.h
+stack.o: stack.c stack.h typedefs.h number.h real.h complex.h matrix.h
+test.o: test.c test.h number.h typedefs.h real.h complex.h matrix.h
+test_gtk_ver.o: test_gtk_ver.c
+undo.o: undo.c undo.h error.h stack.h typedefs.h number.h real.h \
+ complex.h matrix.h

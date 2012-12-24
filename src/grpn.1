@@ -1,0 +1,58 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH GRPN 1 "April 2002" GRPN "GTK+ Reverse Polish Notation Calculator"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+grpn \- GTK+ reverse polish notation calculator
+.SH SYNOPSIS
+.B grpn
+.B " [-fn \fIfont\fR] [-btn-fn \fIfont\fR] [-disp-fn \fIfont\fR] "
+.B " [-rows \fIn\fR] [-cols \fIn\fR] [-b] "
+.br
+.SH DESCRIPTION
+.br
+GRPN is a RPN calculator for the X Window system built using the GIMP Toolkit (GTK+). GRPN
+works with real numbers, complex numbers, matrices, and complex matrices. Numbers can be
+displayed in 4 different radix modes, and complex numbers can be displayed in either
+Cartesian or polar form.
+.PP
+.\" TeX users may be more comfortable with the \fB<whatever>\fP and
+.\" \fI<whatever>\fP escape sequences to invode bold face and italics, 
+.\" respectively.
+\fBgrpn\fP is a GTK+ reverse polish notation calculator.
+.SH OPTIONS
+.br
+.TP
+.B "  -b"
+Don't draw the buttons.
+.TP
+.B "  -rows \fIn\fR"
+Display (a minimum of) n rows.
+.TP
+.B "  -cols \fIn\fR"
+Display (a minimum of) n columns.
+.TP
+.B "  -btn-fn \fIfont\fR"
+Use font for the buttons and menu bar.
+.TP
+.B "  -disp-fn \fIfont\fR"
+Use font for the main display.
+.TP
+.B "  -fn \fIfont\fR"
+Specifies both -btn-fn and -disp-fn.
+.I
+.SH AUTHOR
+GRPN was written by Paul Wilkins <paul.wilkins@analog.com>.
