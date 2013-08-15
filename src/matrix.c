@@ -578,7 +578,7 @@ Matrix * subMatrixCmplx(Matrix *a, Cmplx *b){
    return p;
 }
 
-/* subtract a Cmplx from a Matrix */
+/* subtract a Real from a Matrix */
 Matrix * subMatrixReal(Matrix *a, Real *b){
    int i, j;
    Number *n1;
@@ -604,3 +604,54 @@ Matrix * subMatrixReal(Matrix *a, Real *b){
    return p;
 }
 
+/* left shift a matrix */
+Matrix * lshiftMatrixReal(Matrix *a, Real *b){
+   int i, j;
+   Number *n1;
+   Number **ptr1, **ptr2;
+   Matrix *p = newMatrix();
+
+   if(a == NULL) { fprintf(stderr, "subMatrixReal(NULL)\n"); exit(0); }
+
+   /* initalize the stuff in p */
+   p->data = mallocData(NULL, a->rows, a->cols);
+   p->rows = a->rows;
+   p->cols = a->cols;
+
+   /* p[i][j] = b + a[i][j] */
+   for(i=0; i<a->rows; i++)
+      for(j=0; j<a->cols; j++){
+         ptr1 = a->data + (a->cols * i) + j;
+         ptr2 = p->data + (a->cols * i) + j;
+         *ptr2 = lShiftNumber(*ptr1, (n1=setNumberReal(newNumber(), b)));
+         freeNumber(n1);
+      }
+
+   return p;
+}
+
+/* right shift a matrix */
+Matrix * rshiftMatrixReal(Matrix *a, Real *b){
+   int i, j;
+   Number *n1;
+   Number **ptr1, **ptr2;
+   Matrix *p = newMatrix();
+
+   if(a == NULL) { fprintf(stderr, "subMatrixReal(NULL)\n"); exit(0); }
+
+   /* initalize the stuff in p */
+   p->data = mallocData(NULL, a->rows, a->cols);
+   p->rows = a->rows;
+   p->cols = a->cols;
+
+   /* p[i][j] = b + a[i][j] */
+   for(i=0; i<a->rows; i++)
+      for(j=0; j<a->cols; j++){
+         ptr1 = a->data + (a->cols * i) + j;
+         ptr2 = p->data + (a->cols * i) + j;
+         *ptr2 = rShiftNumber(*ptr1, (n1=setNumberReal(newNumber(), b)));
+         freeNumber(n1);
+      }
+
+   return p;
+}

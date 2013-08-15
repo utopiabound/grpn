@@ -38,14 +38,12 @@ extern void radixCmdCB(GtkWidget *, gpointer);
 FuncInfo invisible1[] = {
    { "Modulo", "mod", "Remainder of division.",
       genericButtonCB, (void *)ModStack },
+   { "Modulo", "%", "Remainder of division.",
+      genericButtonCB, (void *)ModStack },
    { "Hex", "hex", "Hexadecimal display mode.",
       baseCmdCB, (void *)HEXADECIMAL },
    { "Dec", "dec", "Decimal display mode.",
       baseCmdCB, (void *)DECIMAL },
-   //do not forget to add one item in
-   //  struct RowInfo rowinf[] = {
-   //      { >>>19<<<, 0, invisible1 }
-   //below
    { "Eng", "eng", "ENG Decimal display mode.",
       baseCmdCB, (void *)DECIMAL_ENG },
    { "Oct", "oct", "Octal display mode.",
@@ -74,6 +72,14 @@ FuncInfo invisible1[] = {
       genericButtonCB, (void *)MtrxStack },
    { "Mtrx", "matrix", "Create or decompose a matrix.", 
       genericButtonCB, (void *)MtrxStack },
+   { "LShift", "<<", "Left Shift Stack",
+     genericButtonCB, (void *)LShiftStack },
+   { "LShift", "lshift", "Left Shift Stack",
+     genericButtonCB, (void *)LShiftStack },
+   { "RShift", ">>", "Right Shift Stack",
+     genericButtonCB, (void *)RShiftStack },
+   { "RShift", "rshift", "Right Shift Stack",
+     genericButtonCB, (void *)RShiftStack },
    { "Undo", "undo", "Undo last command.  Up to 10 commands can be undone.", 
       genericButtonCB, (void *)UndoStack },
    { "Clear", "clear", "Clears and removes all numbers on the stack.",
@@ -155,7 +161,7 @@ struct RowInfo rowinf[] = {
    { 8, 8, num456 },
    { 8, 8, num123 },
    { 8, 8, num0 },
-   { 20, 0, invisible1 }
+   { sizeof(invisible1)/sizeof(*invisible1), 0, invisible1 }
 };
 
 

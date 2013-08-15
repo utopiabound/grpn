@@ -791,6 +791,45 @@ void createMtrx(){
    UndoStackState(1);
 }
 
+void LShiftStack(){
+    Number *n1, *n2, *n3;
+
+    finishEditor();
+
+    if(checkArgs("lshift", 2))return;
+    SaveStackState(2);
+
+   n1 = Pop();
+   n3 = lShiftNumber((n2=Pop()), n1);
+   if(n3){
+      Push(n3); freeNumber(n1); freeNumber(n2);
+      UndoStackState(1);
+   } else {
+      Push(n2); Push(n1);
+      CancelStackState();
+   }
+}
+
+void RShiftStack(){
+   Number *n1, *n2, *n3;
+
+    finishEditor();
+
+    if(checkArgs("rshift", 2))return;
+    SaveStackState(2);
+
+   n1 = Pop();
+   n3 = rShiftNumber((n2=Pop()), n1);
+   if(n3){
+      Push(n3); freeNumber(n1); freeNumber(n2);
+      UndoStackState(1);
+   } else {
+      Push(n2); Push(n1);
+      CancelStackState();
+   }
+
+}
+
 #define IS_HEX(c) (\
    (c)=='a' || (c)=='A' || \
    (c)=='b' || (c)=='B' || \
@@ -892,5 +931,3 @@ Number * readNumber(char *line, int *nread){
 
    return n1;
 }
-
-

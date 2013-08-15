@@ -70,5 +70,8 @@ Matrix * subMatrixReal(Matrix *, Real *);
 Matrix * subCmplxMatrix(Cmplx *, Matrix *);
 Matrix * subRealMatrix(Real *, Matrix *);
 
+Matrix * lshiftMatrixReal(Matrix *, Real *);
+Matrix * rshiftMatrixReal(Matrix *, Real *);
+
 #endif
 

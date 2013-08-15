@@ -887,3 +887,33 @@ Real * subEqReal(Real *a, Real *b){
 
    return a;
 }
+
+/* left shift 2 Real Numbers */
+Real * lshiftReal(Real *a, Real *b){
+	 Real *p = newReal();
+
+	 if(a->ok == REAL_OK && b->ok == REAL_OK){
+		  p->ok = REAL_OK;
+		  p->num = (ulong)a->num << (ulong)b->num;
+		  checkFinite(p);
+	 }
+	 else if(a->ok == REAL_NAN || b->ok == REAL_NAN) p->ok = REAL_NAN;
+	 else p->ok = REAL_INF;
+
+	 return p;
+}
+
+/* right shift 2 Real Numbers */
+Real * rshiftReal(Real *a, Real *b){
+	 Real *p = newReal();
+
+	 if(a->ok == REAL_OK && b->ok == REAL_OK){
+		  p->ok = REAL_OK;
+		  p->num = (ulong)a->num >> (ulong)b->num;
+		  checkFinite(p);
+	 }
+	 else if(a->ok == REAL_NAN || b->ok == REAL_NAN) p->ok = REAL_NAN;
+	 else p->ok = REAL_INF;
+
+	 return p;
+}

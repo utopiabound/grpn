@@ -55,7 +55,7 @@ depend:
 
 
 clean:
-	rm -f core grpn *~ *.o
+	rm -f core* grpn *~ *.o
 
 include .depend
 
