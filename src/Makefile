@@ -4,6 +4,7 @@
 
 # where to install GRPN
 PREFIX = /usr/local
+MANDIR = ${PREFIX}/man
 
 # What compiler should be used
 CC = gcc 
@@ -39,12 +40,12 @@ pure:	$(OBJS)
 	$(PURIFY) $(CC) $(DFLAGS) -o $@ $(OBJS) $(LIBS) 
 
 install:	grpn
-	mkdir -p $(PREFIX)/bin
-	cp grpn $(PREFIX)/bin
-	chmod 755 $(PREFIX)/bin/grpn
-	mkdir -p $(PREFIX)/man/man1
-	cp grpn.1 $(PREFIX)/man/man1
-	chmod 644 $(PREFIX)/man/man1/grpn.1
+	mkdir -p $(DESTDIR)$(PREFIX)/bin
+	cp grpn $(DESTDIR)$(PREFIX)/bin
+	chmod 755 $(DESTDIR)$(PREFIX)/bin/grpn
+	mkdir -p $(DESTDIR)$(MANDIR)/man1
+	cp grpn.1 $(DESTDIR)$(MANDIR)/man1
+	chmod 644 $(DESTDIR)$(MANDIR)/man1/grpn.1
 
 .c.o:
 	$(CC) -c -o $@ $(CFLAGS) $*.c
