@@ -169,8 +169,6 @@ void popup_window(GtkWidget **dialog, char *txt, char *title){
       gtk_widget_show(scrolled_win);
 
       label = gtk_label_new(txt);
-      gtk_signal_connect(GTK_OBJECT(label), "destroy",
-                          GTK_SIGNAL_FUNC(gtk_widget_destroyed), &label);
       gtk_label_set_justify(GTK_LABEL(label), GTK_JUSTIFY_LEFT);
 #ifdef GTK_VER_1_1
       gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolled_win), label);

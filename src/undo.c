@@ -99,7 +99,7 @@ void CancelStackState(){
 
 /* Called before anything that modifies the stack.
  * Stores args worth of numbers from the stack which will be
- *    used to restore tohe stack if UndoStack is called.
+ *    used to restore the stack if UndoStack is called.
  */
 void SaveStackState(int args){
 

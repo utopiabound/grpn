@@ -90,10 +90,13 @@ Real * mulReal(Real *, Real *);
 Real * mulEqReal(Real *, Real *);
 Real * divReal(Real *, Real *);
 Real * divEqReal(Real *, Real *);
+Real * modReal(Real *, Real *);
 Real * addReal(Real *, Real *);
 Real * addEqReal(Real *, Real *);
 Real * subReal(Real *, Real *);
 Real * subEqReal(Real *, Real *);
 
+Real * lshiftReal(Real *, Real *);
+Real * rshiftReal(Real *, Real *);
 
 #endif

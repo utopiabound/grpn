@@ -1059,3 +1059,169 @@ Number * subNumber(Number *a, Number *b){
    if(c->data == NULL){ free(c); c = NULL; }
    return c;
 }
+
+Number * lShiftNumber(Number *a, Number *b){
+   Number *c = newNumber();
+
+   if(a == NULL || b == NULL) 
+      { fprintf(stderr, "lShiftNumber(NULL)\n"); exit(0); }
+
+   switch(a->type){
+      case REAL:
+         switch(b->type){
+            case REAL:
+               c->type = REAL;
+               c->data = lshiftReal(a->data, b->data);
+               break;
+            case COMPLEX:
+               c->type = COMPLEX;
+               invalidTyprError("lshift");
+               c->data = NULL;
+               break;
+            case MATRIX:
+               c->type = MATRIX;
+               invalidTyprError("lshift");
+               c->data = NULL;
+               break;
+            default:
+               fprintf(stderr, "Error: Unknown number type\n");
+               exit(0);
+               break;
+         }
+         break;
+      case COMPLEX:
+         switch(b->type){
+            case COMPLEX:
+               c->type = COMPLEX;
+               invalidTyprError("lshift");
+               c->data = NULL;
+               break;
+            case REAL:
+               c->type = COMPLEX;
+               invalidTyprError("lshift");
+               c->data = NULL;
+               break;
+            case MATRIX:
+               c->type = MATRIX;
+               invalidTyprError("lshift");
+               c->data = NULL;
+               break;
+            default:
+               fprintf(stderr, "Error: Unknown number type\n");
+               exit(0);
+               break;
+         }
+         break;
+      case MATRIX:
+         switch(b->type){
+            case MATRIX:
+               c->type = MATRIX;
+               invalidTyprError("lshift");
+               c->data = NULL;
+               break;
+            case COMPLEX:
+               c->type = MATRIX;
+               invalidTyprError("lshift");
+               c->data = NULL;
+               break;
+            case REAL:
+               c->type = MATRIX;
+               c->data = lshiftMatrixReal(a->data, b->data);
+               break;
+            default:
+               fprintf(stderr, "Error: Unknown number type\n");
+               exit(0);
+               break;
+         }
+         break;
+      default:
+         fprintf(stderr, "Error: Unknown number type\n");
+         exit(0);
+   }
+
+   if(c->data == NULL){ free(c); c = NULL; }
+   return c;
+}
+
+Number * rShiftNumber(Number *a, Number *b){
+   Number *c = newNumber();
+
+   if(a == NULL || b == NULL) 
+      { fprintf(stderr, "rShiftNumber(NULL)\n"); exit(0); }
+
+   switch(a->type){
+      case REAL:
+         switch(b->type){
+            case REAL:
+               c->type = REAL;
+               c->data = rshiftReal(a->data, b->data);
+               break;
+            case COMPLEX:
+               c->type = COMPLEX;
+               invalidTyprError("rshift");
+               c->data = NULL;
+               break;
+            case MATRIX:
+               c->type = MATRIX;
+               invalidTyprError("rshift");
+               c->data = NULL;
+               break;
+            default:
+               fprintf(stderr, "Error: Unknown number type\n");
+               exit(0);
+               break;
+         }
+         break;
+      case COMPLEX:
+         switch(b->type){
+            case COMPLEX:
+               c->type = COMPLEX;
+               invalidTyprError("rshift");
+               c->data = NULL;
+               break;
+            case REAL:
+               c->type = COMPLEX;
+               invalidTyprError("rshift");
+               c->data = NULL;
+               break;
+            case MATRIX:
+               c->type = MATRIX;
+               invalidTyprError("rshift");
+               c->data = NULL;
+               break;
+            default:
+               fprintf(stderr, "Error: Unknown number type\n");
+               exit(0);
+               break;
+         }
+         break;
+      case MATRIX:
+         switch(b->type){
+            case MATRIX:
+               c->type = MATRIX;
+               invalidTyprError("rshift");
+               c->data = NULL;
+               break;
+            case COMPLEX:
+               c->type = MATRIX;
+               invalidTyprError("rshift");
+               c->data = NULL;
+               break;
+            case REAL:
+               c->type = MATRIX;
+               c->data = rshiftMatrixReal(a->data, b->data);
+               break;
+            default:
+               fprintf(stderr, "Error: Unknown number type\n");
+               exit(0);
+               break;
+         }
+         break;
+      default:
+         fprintf(stderr, "Error: Unknown number type\n");
+         exit(0);
+   }
+
+   if(c->data == NULL){ free(c); c = NULL; }
+   return c;
+}

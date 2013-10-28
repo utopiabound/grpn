@@ -77,8 +77,12 @@ Number * atanNumber(Number *);
 
 Number * mulNumber(Number *, Number *);
 Number * divNumber(Number *, Number *);
+Number * modNumber(Number *, Number *);
 Number * addNumber(Number *, Number *);
 Number * subNumber(Number *, Number *);
+
+Number * lShiftNumber(Number *, Number *);
+Number * rShiftNumber(Number *, Number *);
 
 #endif
 

@@ -79,6 +79,8 @@ void SwapStack();
 void CplxStack();
 void MtrxStack();
 
+void LShiftStack();
+void RShiftStack();
 
 #endif
 
