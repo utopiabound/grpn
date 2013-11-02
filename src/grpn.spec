@@ -1,5 +1,5 @@
 Name:		grpn
-Version:	1.3.4
+Version:	1.4.0
 Release:	1%{?dist}
 Summary:	A RPN calcuator for real and complex numbers with a GTK / X11 GUI
 Group:		Applications/System

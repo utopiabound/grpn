@@ -107,3 +107,9 @@ v1.3.4
    overwritten with the -fn-disp command line option. 
    Both keys "," and "." are always treated as decimal separator 
    whatever the locale is.
+
+v1.4.0
+   New left and right shift operators.
+   Some fixes for compilation warnings in regard to the mod 
+   operator functions.
+   New adds a gitignore file. 

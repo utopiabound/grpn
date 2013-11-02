@@ -38,6 +38,7 @@ By: Paul Wilkins\n\
     Add_includes.dpatch by Michael Bienia <geser at ubuntu.com>\n\
     gtk2.dpatch by Barry deFreese <bdefreese at debian.org>\n\
     Support for Pango-fonts by Jean-Pierre Demailly.\n\
+    Shift operators by Nathaniel Clark.\n\
     Changes since version 1.1.2-3: Jens Getreu <getreu at web.de>\n\
 \n\
 "

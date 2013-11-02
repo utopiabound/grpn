@@ -1,3 +1,12 @@
+grpn (1.4.0-1) stable; urgency=low
+
+  *  New left and right shift operators.
+     Some fixes for compilation warnings in regard to the mod 
+     operator functions.
+     New adds a gitignore file. 
+
+ -- Jens Getreu  <getreu@web.de>  Sat, 02 Nov 2013 15:05:01 +0200
+
 grpn (1.3.4-1) unstable; urgency=low
 
   *  If compiled with -DUSE_PANGO switch grpn uses the pango font 
