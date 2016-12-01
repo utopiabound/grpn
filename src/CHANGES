@@ -113,3 +113,6 @@ v1.4.0
    Some fixes for compilation warnings in regard to the mod 
    operator functions.
    New adds a gitignore file. 
+
+v1.4.1
+   Maintenance: Spec: define _desktopdir if not already

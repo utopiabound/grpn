@@ -1,3 +1,9 @@
+grpn (1.4.1-1) stable; urgency=low
+
+  *  Maintenance: Spec: define _desktopdir if not already
+
+ -- Jens Getreu  <getreu@web.de>  Thu, 01 Dec 2016 10:45:01 +0200
+
 grpn (1.4.0-1) stable; urgency=low
 
   *  New left and right shift operators.
