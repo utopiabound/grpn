@@ -1,3 +1,7 @@
+%if %{!?_desktopdir:1}
+%define _desktopdir %{_datadir}/applications
+%endif
+
 Name:		grpn
 Version:	1.4.0
 Release:	1%{?dist}
