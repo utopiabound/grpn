@@ -75,6 +75,10 @@ void MulStack();
 void DivStack();
 void ModStack();
 
+void BitwiseANDStack();
+void BitwiseORStack();
+void BitwiseXORStack();
+
 void SwapStack();
 void CplxStack();
 void MtrxStack();

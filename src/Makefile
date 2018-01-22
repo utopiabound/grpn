@@ -50,13 +50,15 @@ install:	grpn
 .c.o:
 	$(CC) -c -o $@ $(CFLAGS) $*.c
 
-depend:
+depend::
 	rm -f .depend
 	$(CC) -MM $(CFLAGS) *.c >> .depend
 
+TAGS:
+	etags *.[ch]
 
-clean:
-	rm -f core* grpn *~ *.o
+clean::
+	rm -f core* grpn *~ *.o TAGS
 
 include .depend
 

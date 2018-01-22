@@ -1225,3 +1225,255 @@ Number * rShiftNumber(Number *a, Number *b){
    if(c->data == NULL){ free(c); c = NULL; }
    return c;
 }
+
+Number * bitwiseANDNumber(Number *a, Number *b){
+   Number *c = newNumber();
+
+   if(a == NULL || b == NULL) 
+      { fprintf(stderr, "bitwiseANDNumber(NULL)\n"); exit(0); }
+
+   switch(a->type){
+      case REAL:
+         switch(b->type){
+            case REAL:
+               c->type = REAL;
+               c->data = bitwiseANDReal(a->data, b->data);
+               break;
+            case COMPLEX:
+               c->type = COMPLEX;
+               invalidTyprError("AND");
+               c->data = NULL;
+               break;
+            case MATRIX:
+               c->type = MATRIX;
+               invalidTyprError("AND");
+               c->data = NULL;
+               break;
+            default:
+               fprintf(stderr, "Error: Unknown number type\n");
+               exit(0);
+               break;
+         }
+         break;
+      case COMPLEX:
+         switch(b->type){
+            case COMPLEX:
+               c->type = COMPLEX;
+               invalidTyprError("AND");
+               c->data = NULL;
+               break;
+            case REAL:
+               c->type = COMPLEX;
+               invalidTyprError("AND");
+               c->data = NULL;
+               break;
+            case MATRIX:
+               c->type = MATRIX;
+               invalidTyprError("AND");
+               c->data = NULL;
+               break;
+            default:
+               fprintf(stderr, "Error: Unknown number type\n");
+               exit(0);
+               break;
+         }
+         break;
+      case MATRIX:
+         switch(b->type){
+            case MATRIX:
+               c->type = MATRIX;
+               invalidTyprError("AND");
+               c->data = NULL;
+               break;
+            case COMPLEX:
+               c->type = MATRIX;
+               invalidTyprError("AND");
+               c->data = NULL;
+               break;
+            case REAL:
+               c->type = MATRIX;
+	       invalidTyprError("AND");
+               c->data = NULL;
+               break;
+            default:
+               fprintf(stderr, "Error: Unknown number type\n");
+               exit(0);
+               break;
+         }
+         break;
+      default:
+         fprintf(stderr, "Error: Unknown number type\n");
+         exit(0);
+   }
+
+   if(c->data == NULL){ free(c); c = NULL; }
+   return c;
+}
+
+Number * bitwiseORNumber(Number *a, Number *b){
+   Number *c = newNumber();
+
+   if(a == NULL || b == NULL) 
+      { fprintf(stderr, "bitwiseORNumber(NULL)\n"); exit(0); }
+
+   switch(a->type){
+      case REAL:
+         switch(b->type){
+            case REAL:
+               c->type = REAL;
+               c->data = bitwiseORReal(a->data, b->data);
+               break;
+            case COMPLEX:
+               c->type = COMPLEX;
+               invalidTyprError("OR");
+               c->data = NULL;
+               break;
+            case MATRIX:
+               c->type = MATRIX;
+               invalidTyprError("OR");
+               c->data = NULL;
+               break;
+            default:
+               fprintf(stderr, "Error: Unknown number type\n");
+               exit(0);
+               break;
+         }
+         break;
+      case COMPLEX:
+         switch(b->type){
+            case COMPLEX:
+               c->type = COMPLEX;
+               invalidTyprError("OR");
+               c->data = NULL;
+               break;
+            case REAL:
+               c->type = COMPLEX;
+               invalidTyprError("OR");
+               c->data = NULL;
+               break;
+            case MATRIX:
+               c->type = MATRIX;
+               invalidTyprError("OR");
+               c->data = NULL;
+               break;
+            default:
+               fprintf(stderr, "Error: Unknown number type\n");
+               exit(0);
+               break;
+         }
+         break;
+      case MATRIX:
+         switch(b->type){
+            case MATRIX:
+               c->type = MATRIX;
+               invalidTyprError("OR");
+               c->data = NULL;
+               break;
+            case COMPLEX:
+               c->type = MATRIX;
+               invalidTyprError("OR");
+               c->data = NULL;
+               break;
+            case REAL:
+               c->type = MATRIX;
+	       invalidTyprError("OR");
+               c->data = NULL;
+               break;
+            default:
+               fprintf(stderr, "Error: Unknown number type\n");
+               exit(0);
+               break;
+         }
+         break;
+      default:
+         fprintf(stderr, "Error: Unknown number type\n");
+         exit(0);
+   }
+
+   if(c->data == NULL){ free(c); c = NULL; }
+   return c;
+}
+
+Number * bitwiseXORNumber(Number *a, Number *b){
+   Number *c = newNumber();
+
+   if(a == NULL || b == NULL) 
+      { fprintf(stderr, "bitwiseXORNumber(NULL)\n"); exit(0); }
+
+   switch(a->type){
+      case REAL:
+         switch(b->type){
+            case REAL:
+               c->type = REAL;
+               c->data = bitwiseXORReal(a->data, b->data);
+               break;
+            case COMPLEX:
+               c->type = COMPLEX;
+               invalidTyprError("XOR");
+               c->data = NULL;
+               break;
+            case MATRIX:
+               c->type = MATRIX;
+               invalidTyprError("XOR");
+               c->data = NULL;
+               break;
+            default:
+               fprintf(stderr, "Error: Unknown number type\n");
+               exit(0);
+               break;
+         }
+         break;
+      case COMPLEX:
+         switch(b->type){
+            case COMPLEX:
+               c->type = COMPLEX;
+               invalidTyprError("XOR");
+               c->data = NULL;
+               break;
+            case REAL:
+               c->type = COMPLEX;
+               invalidTyprError("XOR");
+               c->data = NULL;
+               break;
+            case MATRIX:
+               c->type = MATRIX;
+               invalidTyprError("XOR");
+               c->data = NULL;
+               break;
+            default:
+               fprintf(stderr, "Error: Unknown number type\n");
+               exit(0);
+               break;
+         }
+         break;
+      case MATRIX:
+         switch(b->type){
+            case MATRIX:
+               c->type = MATRIX;
+               invalidTyprError("XOR");
+               c->data = NULL;
+               break;
+            case COMPLEX:
+               c->type = MATRIX;
+               invalidTyprError("XOR");
+               c->data = NULL;
+               break;
+            case REAL:
+               c->type = MATRIX;
+	       invalidTyprError("XOR");
+               c->data = NULL;
+               break;
+            default:
+               fprintf(stderr, "Error: Unknown number type\n");
+               exit(0);
+               break;
+         }
+         break;
+      default:
+         fprintf(stderr, "Error: Unknown number type\n");
+         exit(0);
+   }
+
+   if(c->data == NULL){ free(c); c = NULL; }
+   return c;
+}

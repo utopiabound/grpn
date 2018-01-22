@@ -142,7 +142,7 @@ GtkWidget *setupLCD(GtkWidget *parent, int rows, int cols, char *font){
    pango_layout = gtk_widget_create_pango_layout(lcdDA, NULL);
    pango_desc = pango_font_description_from_string(font?font:"Liberation Mono 16");
    pango_fontmap = pango_cairo_font_map_get_default();
-   pango_context = pango_cairo_font_map_create_context( (PangoCairoFontMap *)pango_fontmap );
+   pango_context = pango_font_map_create_context(pango_fontmap);
    pango_font = pango_context_load_font(pango_context, pango_desc);
    pango_metrics =
       pango_context_get_metrics(pango_context, pango_desc, pango_language_get_default());

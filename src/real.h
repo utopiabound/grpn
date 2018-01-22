@@ -99,4 +99,8 @@ Real * subEqReal(Real *, Real *);
 Real * lshiftReal(Real *, Real *);
 Real * rshiftReal(Real *, Real *);
 
+Real * bitwiseANDReal(Real *a, Real *b);
+Real * bitwiseORReal(Real *a, Real *b);
+Real * bitwiseXORReal(Real *a, Real *b);
+
 #endif
