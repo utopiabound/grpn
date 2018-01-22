@@ -71,11 +71,11 @@ void helpCB(gpointer data){
 /* change the base we use to display the numbers */
 void baseCB(gpointer clientData){
 
-   setBaseMode((int)clientData);
+    setBaseMode(GPOINTER_TO_INT(clientData));
 
-   /* refresh the display */
-   redrawLCD();
-   refreshModeDisplay();
+    /* refresh the display */
+    redrawLCD();
+    refreshModeDisplay();
 }
 
 void baseCmdCB(GtkWidget *w, gpointer clientData){
@@ -109,11 +109,11 @@ void baseToggleCB(GtkWidget *widget, gpointer data){
 /* change the radix mode we use to display the numbers */
 void radixCB(gpointer clientData){
    
-   setRadixMode((int)clientData);
+    setRadixMode(GPOINTER_TO_INT(clientData));
 
-   /* refresh the display */
-   redrawLCD();
-   refreshModeDisplay();
+    /* refresh the display */
+    redrawLCD();
+    refreshModeDisplay();
 }
 
 void radixCmdCB(GtkWidget *w, gpointer clientData){
@@ -132,21 +132,21 @@ void radixToggleCB(GtkWidget *widget, gpointer data){
 /* change the coordinate mode we use to display the numbers */
 void cmodeCB(gpointer clientData){
    
-   switch((int)clientData){
-      case RECTANGULAR:
-         setPolarMode(RECTANGULAR);
-         break;
-      case POLAR:
-         setPolarMode(POLAR);
-         break;
-      default:
-         fprintf(stderr, "Error: cmodeCB: i shouldn't get here\n");
-         exit(0);
-   }
+    switch(GPOINTER_TO_INT(clientData)) {
+    case RECTANGULAR:
+	setPolarMode(RECTANGULAR);
+	break;
+    case POLAR:
+	setPolarMode(POLAR);
+	break;
+    default:
+	fprintf(stderr, "Error: cmodeCB: i shouldn't get here\n");
+	exit(0);
+    }
 
-   /* refresh the display */
-   redrawLCD();
-   refreshModeDisplay();
+    /* refresh the display */
+    redrawLCD();
+    refreshModeDisplay();
 }
 
 void cmodeCmdCB(GtkWidget *w, gpointer clientData){
@@ -165,10 +165,10 @@ void cmodeToggleCB(GtkWidget *widget, gpointer data){
 /* change the display mode we use to display the numbers */
 void dmodeCB(gpointer clientData){
    
-   setLCDDispMode((int)clientData);
+    setLCDDispMode(GPOINTER_TO_INT(clientData));
 
-   /* refresh the display */
-   redrawLCD();
+    /* refresh the display */
+    redrawLCD();
 }
 
 void dmodeToggleCB(GtkWidget *widget, gpointer data){

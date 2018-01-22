@@ -161,31 +161,31 @@ GtkWidget *setup_menu(GtkWidget *parent)
 	 gtk_menu_append(GTK_MENU(baseM), binI);
 	 gtk_widget_show(binI);
 	 gtk_signal_connect_object(GTK_OBJECT(binI), "activate",
-				   GTK_SIGNAL_FUNC(baseCB), (gpointer)BINARY);
+				   GTK_SIGNAL_FUNC(baseCB), GINT_TO_POINTER(BINARY));
 	 /* Octal */
 	 octI = gtk_menu_item_new_with_label("Octal");
 	 gtk_menu_append(GTK_MENU(baseM), octI);
 	 gtk_widget_show(octI);
 	 gtk_signal_connect_object(GTK_OBJECT(octI), "activate",
-				   GTK_SIGNAL_FUNC(baseCB), (gpointer)OCTAL);
+				   GTK_SIGNAL_FUNC(baseCB), GINT_TO_POINTER(OCTAL));
 	 /* Decimal */
 	 decI = gtk_menu_item_new_with_label("Decimal");
 	 gtk_menu_append(GTK_MENU(baseM), decI);
 	 gtk_widget_show(decI);
 	 gtk_signal_connect_object(GTK_OBJECT(decI), "activate",
-				   GTK_SIGNAL_FUNC(baseCB), (gpointer)DECIMAL);
+				   GTK_SIGNAL_FUNC(baseCB), GINT_TO_POINTER(DECIMAL));
 	 /* Decimal-Eng */
 	 decEngI = gtk_menu_item_new_with_label("Decimal-Eng");
 	 gtk_menu_append(GTK_MENU(baseM), decEngI);
 	 gtk_widget_show(decEngI);
 	 gtk_signal_connect_object(GTK_OBJECT(decEngI), "activate",
-				   GTK_SIGNAL_FUNC(baseCB), (gpointer)DECIMAL_ENG);
+				   GTK_SIGNAL_FUNC(baseCB), GINT_TO_POINTER(DECIMAL_ENG));
 	 /* Hex */
 	 hexI = gtk_menu_item_new_with_label("Hex");
 	 gtk_menu_append(GTK_MENU(baseM), hexI);
 	 gtk_widget_show(hexI);
 	 gtk_signal_connect_object(GTK_OBJECT(hexI), "activate",
-				   GTK_SIGNAL_FUNC(baseCB), (gpointer)HEXADECIMAL);
+				   GTK_SIGNAL_FUNC(baseCB), GINT_TO_POINTER(HEXADECIMAL));
 
       baseI = gtk_menu_item_new_with_label("Base");
       gtk_menu_append(GTK_MENU(optM), baseI);

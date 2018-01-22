@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 /* callback_buttons.c  by Paul Wilkins */
 
 #include <stdio.h>
+#include <string.h>
 #include <gtk/gtk.h>
 
 #include "buttons.h"
@@ -58,7 +59,7 @@ void enterNumCB(GtkWidget *w, gpointer clientData){
    /* reset any error string */
    resetError();
 
-   int digit = (int)fi->data;
+   int digit = GPOINTER_TO_INT(fi->data);
    if (digit=='.')
    {
       //is the locale decimal seperator a comma?

@@ -37,7 +37,7 @@ extern struct RowInfo rowinf[];
 extern int NumButtonRows;
 extern int NumFunctionRows;
 
-GtkWidget *setupButtons(GtkWidget *parent);
+GtkWidget *setupButtons(GtkWidget *parent, char *font);
 
 extern void genericButtonCB(GtkWidget *, gpointer);
 extern void nullButtonCB(GtkWidget *, gpointer);

@@ -24,6 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <locale.h>
 #ifdef USE_GNOME
 #include <gnome.h>
@@ -52,8 +53,9 @@ void usage(char *str){
    fprintf(stderr, "   -bm:        basemode: dec, eng, bin, oct or hex.\n");
 }
 
-   GtkWidget *main_w;
-main(int argc, char *argv[])
+GtkWidget *main_w;
+
+int main(int argc, char *argv[])
 {
    int n;
    int rows, cols;
@@ -172,20 +174,6 @@ main(int argc, char *argv[])
       exit(0);
    }
 
-   /* set the font if told */
-   if(btn_font != NULL){
-      default_style = gtk_widget_get_default_style();
-      if(NULL == (new_font = gdk_font_load(btn_font))){
-         fprintf(stderr, "Unable to load font %s.\n", btn_font);
-         exit(0);
-      }
-      new_style = gtk_style_copy(default_style);
-      new_style->font_desc = new_font;
-/* BDD - No longer in Gtk2.x */
-/*      gtk_widget_set_default_style(new_style); */
-   }
-   
-
 #ifdef USE_GNOME
    main_w = gnome_app_new("grpn", "grpn");
    setup_menu(main_w);
@@ -220,7 +208,7 @@ main(int argc, char *argv[])
 
    /* create the varrious subsystems */
    mdisp = setupModeDisplay(vbox);
-   if(drawButtons) btns = setupButtons(vbox);
+   if(drawButtons) btns = setupButtons(vbox, btn_font);
    lcd = setupLCD(vbox, rows, cols, disp_font);
 
    /* Create pixmap of depth 1 (bitmap) for icon */
@@ -233,4 +221,5 @@ main(int argc, char *argv[])
 
    gtk_main();
 
+   return 0;
 }
