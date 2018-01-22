@@ -178,7 +178,7 @@ void processInput(int ksym, int isCtrl, char bb, char chr){
          DivStack();
          break;
 
-      case GDK_asciicircum:
+   case GDK_asciicircum: // '^'
          PowStack();
          break;
 

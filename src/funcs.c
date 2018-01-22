@@ -24,6 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <string.h>
 #include <locale.h>
 #include <gtk/gtk.h>
+#include <ctype.h>
 
 #include "stack.h"
 #include "number.h"
@@ -799,38 +800,94 @@ void LShiftStack(){
     if(checkArgs("lshift", 2))return;
     SaveStackState(2);
 
-   n1 = Pop();
-   n3 = lShiftNumber((n2=Pop()), n1);
-   if(n3){
-      Push(n3); freeNumber(n1); freeNumber(n2);
-      UndoStackState(1);
-   } else {
-      Push(n2); Push(n1);
-      CancelStackState();
-   }
+    n1 = Pop();
+    n3 = lShiftNumber((n2=Pop()), n1);
+    if(n3){
+	Push(n3); freeNumber(n1); freeNumber(n2);
+	UndoStackState(1);
+    } else {
+	Push(n2); Push(n1);
+	CancelStackState();
+    }
 }
 
 void RShiftStack(){
-   Number *n1, *n2, *n3;
+    Number *n1, *n2, *n3;
 
     finishEditor();
 
     if(checkArgs("rshift", 2))return;
     SaveStackState(2);
 
-   n1 = Pop();
-   n3 = rShiftNumber((n2=Pop()), n1);
-   if(n3){
-      Push(n3); freeNumber(n1); freeNumber(n2);
-      UndoStackState(1);
-   } else {
-      Push(n2); Push(n1);
-      CancelStackState();
-   }
-
+    n1 = Pop();
+    n3 = rShiftNumber((n2=Pop()), n1);
+    if(n3){
+	Push(n3); freeNumber(n1); freeNumber(n2);
+	UndoStackState(1);
+    } else {
+	Push(n2); Push(n1);
+	CancelStackState();
+    }
 }
 
-#define IS_HEX(c) (\
+void BitwiseANDStack(){
+    Number *n1, *n2, *n3;
+
+    finishEditor();
+
+    if (checkArgs("and", 2)) return;
+    SaveStackState(2);
+
+    n1 = Pop();
+    n3 = bitwiseANDNumber((n2=Pop()), n1);
+    if (n3) {
+	Push(n3); freeNumber(n1); freeNumber(n2);
+	UndoStackState(1);
+    } else {
+	Push(n2); Push(n1);
+	CancelStackState();
+    }
+}
+
+void BitwiseORStack(){
+    Number *n1, *n2, *n3;
+
+    finishEditor();
+
+    if (checkArgs("or", 2)) return;
+    SaveStackState(2);
+
+    n1 = Pop();
+    n3 = bitwiseORNumber((n2=Pop()), n1);
+    if (n3) {
+	Push(n3); freeNumber(n1); freeNumber(n2);
+	UndoStackState(1);
+    } else {
+	Push(n2); Push(n1);
+	CancelStackState();
+    }
+}
+
+void BitwiseXORStack(){
+    Number *n1, *n2, *n3;
+
+    finishEditor();
+
+    if (checkArgs("xor", 2)) return;
+    SaveStackState(2);
+
+    n1 = Pop();
+    n3 = bitwiseXORNumber((n2=Pop()), n1);
+    if (n3) {
+	Push(n3); freeNumber(n1); freeNumber(n2);
+	UndoStackState(1);
+    } else {
+	Push(n2); Push(n1);
+	CancelStackState();
+    }
+}
+
+#define IS_HEX(c) (	   \
    (c)=='a' || (c)=='A' || \
    (c)=='b' || (c)=='B' || \
    (c)=='c' || (c)=='C' || \

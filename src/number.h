@@ -84,5 +84,9 @@ Number * subNumber(Number *, Number *);
 Number * lShiftNumber(Number *, Number *);
 Number * rShiftNumber(Number *, Number *);
 
+Number * bitwiseANDNumber(Number *, Number *);
+Number * bitwiseORNumber(Number *, Number *);
+Number * bitwiseXORNumber(Number *, Number *);
+
 #endif
 

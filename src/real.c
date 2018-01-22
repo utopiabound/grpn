@@ -917,3 +917,45 @@ Real * rshiftReal(Real *a, Real *b){
 
 	 return p;
 }
+
+Real * bitwiseANDReal(Real *a, Real *b){
+	 Real *p = newReal();
+
+	 if(a->ok == REAL_OK && b->ok == REAL_OK){
+		  p->ok = REAL_OK;
+		  p->num = (ulong)a->num & (ulong)b->num;
+		  checkFinite(p);
+	 }
+	 else if(a->ok == REAL_NAN || b->ok == REAL_NAN) p->ok = REAL_NAN;
+	 else p->ok = REAL_INF;
+
+	 return p;
+}
+
+Real * bitwiseORReal(Real *a, Real *b){
+	 Real *p = newReal();
+
+	 if(a->ok == REAL_OK && b->ok == REAL_OK){
+		  p->ok = REAL_OK;
+		  p->num = (ulong)a->num | (ulong)b->num;
+		  checkFinite(p);
+	 }
+	 else if(a->ok == REAL_NAN || b->ok == REAL_NAN) p->ok = REAL_NAN;
+	 else p->ok = REAL_INF;
+
+	 return p;
+}
+
+Real * bitwiseXORReal(Real *a, Real *b){
+	 Real *p = newReal();
+
+	 if(a->ok == REAL_OK && b->ok == REAL_OK){
+		  p->ok = REAL_OK;
+		  p->num = (ulong)a->num ^ (ulong)b->num;
+		  checkFinite(p);
+	 }
+	 else if(a->ok == REAL_NAN || b->ok == REAL_NAN) p->ok = REAL_NAN;
+	 else p->ok = REAL_INF;
+
+	 return p;
+}
