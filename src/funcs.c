@@ -103,6 +103,32 @@ void PushStack(){
 
 }
 
+void IStack(){
+   Number *n1;
+
+   finishEditor();
+
+   SaveStackState(0);
+
+   n1 = setNumberCmplx(newNumber(), cmplxI);
+   Push(n1);
+
+   UndoStackState(1);
+}
+
+void EStack(){
+   Number *n1;
+
+   finishEditor();
+
+   SaveStackState(0);
+
+   n1 = setNumberReal(newNumber(), realE);
+   Push(n1);
+
+   UndoStackState(1);
+}
+
 void PiStack(){
    Number *n1;
 
@@ -887,14 +913,7 @@ void BitwiseXORStack(){
     }
 }
 
-#define IS_HEX(c) (	   \
-   (c)=='a' || (c)=='A' || \
-   (c)=='b' || (c)=='B' || \
-   (c)=='c' || (c)=='C' || \
-   (c)=='d' || (c)=='D' || \
-   (c)=='e' || (c)=='E' || \
-   (c)=='f' || (c)=='F' || \
-   isdigit((c)))
+#define IS_HEX(c) isxdigit((c))
 #define IS_DEC(c) isdigit((c))
 #define IS_OCT(c) (\
    (c)=='0' || (c)=='1' || \

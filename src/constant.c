@@ -24,6 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "real.h"
 #include "complex.h"
 
+Real *realE;
 Real *realPi;
 Real *realPi2;
 Real *realZero;
@@ -38,8 +39,9 @@ Cmplx *cmplxI;
 void setup_constant(){
    Real *tmp;
 
+   realE  = setRealDouble(newReal(), M_E);
    realPi = setRealDouble(newReal(), M_PI);
-   realPi2 = setRealDouble(newReal(), M_PI/2.0);
+   realPi2 = setRealDouble(newReal(), M_PI_2);
    realZero = setRealDouble(newReal(), 0.0);
    realHalf = setRealDouble(newReal(), 0.5);
    realTen = setRealDouble(newReal(), 10.0);

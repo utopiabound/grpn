@@ -41,6 +41,8 @@ void DupStack();
 void PopStack();
 void PushStack();
 
+void EStack();
+void IStack();
 void PiStack();
 
 void NegStack();
