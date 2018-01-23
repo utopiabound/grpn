@@ -1,4 +1,4 @@
-= grpn
+# grpn
 
 
 GRPN is a RPN calculator for the X Window system built using the
