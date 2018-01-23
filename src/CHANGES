@@ -112,7 +112,10 @@ v1.4.0
    New left and right shift operators.
    Some fixes for compilation warnings in regard to the mod 
    operator functions.
-   New adds a gitignore file. 
 
 v1.4.1
-   Maintenance: Spec: define _desktopdir if not already
+   Maintenance: Spec: define _desktopdir if not already.
+
+v1.5.0
+   Fix fonts and compiler warnings.
+   Add bit-wise AND, OR and XOR operators.

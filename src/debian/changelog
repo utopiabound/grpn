@@ -1,3 +1,10 @@
+grpn (1.5.0-1) stable; urgency=low
+
+  *  add left and right shift operators
+  *  fix compiler warnings
+
+ -- Jens Getreu  <getreu@web.de> Tue, 23 Jan 2018 09:20:07 +0200
+
 grpn (1.4.1-1) stable; urgency=low
 
   *  Maintenance: Spec: define _desktopdir if not already

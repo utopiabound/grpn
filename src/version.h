@@ -24,7 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // used in help.c
 #define GRPN_VERSION \
 "\n\
-GRPN  1.4.1\n\
+GRPN  1.5.0\n\
 \n\
 "
 
