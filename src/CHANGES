@@ -119,3 +119,7 @@ v1.4.1
 v1.5.0
    Fix fonts and compiler warnings.
    Add bit-wise AND, OR and XOR operators.
+
+v1.5.1
+   Make Help dialog mono-spaced.
+   Add e and i as type-able constants.
