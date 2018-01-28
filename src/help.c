@@ -135,6 +135,10 @@ void popup_window(GtkWidget **dialog, char *txt, char *title){
    GtkWidget *scrolled_win;
    GtkWidget *label;
    GtkWidget *button;
+#ifdef USE_PANGO
+   PangoFontDescription *pango_desc;
+#endif
+
  
    if (!*dialog) {
 
@@ -176,6 +180,12 @@ void popup_window(GtkWidget **dialog, char *txt, char *title){
 #else
       gtk_container_add(GTK_CONTAINER(scrolled_win), label);
 #endif
+#ifdef USE_PANGO
+      // Pick the default Monospaced font
+      pango_desc = pango_font_description_from_string("Mono");
+      if (pango_desc)
+	  gtk_widget_modify_font(label, pango_desc);
+#endif
       gtk_widget_show(label);
 
       button = gtk_button_new_with_label("Dismiss");
@@ -195,13 +205,12 @@ void popup_window(GtkWidget **dialog, char *txt, char *title){
       gtk_widget_destroy(*dialog);
 
 }
- 
 
 void license_popup(){
    int i;
    char *htxt;
    static GtkWidget *licenseDialog = NULL;
- 
+
    if(NULL == (htxt = (char*)malloc((10000)*sizeof(char)))){
       perror("license_popup: malloc");
       return;
@@ -215,8 +224,6 @@ void license_popup(){
    popup_window(&licenseDialog, htxt, "License");
    free(htxt);
 }
- 
- 
 
 void help_popup(){
    int i, j, k;
@@ -235,7 +242,7 @@ void help_popup(){
       return;
    } else {
       strcpy(htxt, HELP_TXT);
-      // append the list of commands to the help text 
+      // append the list of commands to the help text
       for(i=0; i<NumFunctionRows; i++){
 	 for(j=0; j<rowinf[i].numBtns; j++){
 	    cmd = rowinf[i].fi[j].cmd;

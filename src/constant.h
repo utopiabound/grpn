@@ -22,6 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __CONSTANT_H
 #define __CONSTANT_H
 
+extern Real *realE;
 extern Real *realPi;
 extern Real *realPi2;
 extern Real *realZero;
