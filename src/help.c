@@ -155,7 +155,7 @@ void popup_window(GtkWidget **dialog, char *txt, char *title){
 #endif
 
       gtk_window_set_title(GTK_WINDOW(*dialog), title);
-      gtk_widget_set_usize(*dialog, 470, 470);
+      gtk_widget_set_usize(*dialog, 570, 470);
 
       vbox = gtk_vbox_new(FALSE, 0);
       gtk_container_add(GTK_CONTAINER(*dialog), vbox);
