@@ -940,13 +940,15 @@ int isDigitBase(char c){
          return IS_BIN(c);
          break;
    }
+   fprintf(stderr, "Invalid Base Mode: %#x\n", getBaseMode());
+   return 0;
 }
 
 
 Number * readNumber(char *line, int *nread){
    char *p, buf[2];
    int i1;
-   double d1, num;
+   double num;
    Real *r1;
    Number *n1;
 

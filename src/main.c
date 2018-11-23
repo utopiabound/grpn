@@ -63,12 +63,6 @@ int main(int argc, char *argv[])
    char *btn_font, *disp_font;
    /* GtkWidget *main_w; */
    GtkWidget *vbox;
-   GtkWidget *menu;
-   GtkWidget *mdisp;
-   GtkWidget *lcd;
-   GtkWidget *btns;
-   GdkFont *new_font;
-   GtkStyle *default_style, *new_style;
    GdkBitmap *icon_bitmap;
 #ifdef USE_GNOME
    GnomeAppBar *appbar;
@@ -197,7 +191,7 @@ int main(int argc, char *argv[])
    gtk_widget_show(vbox);
 
    /* set up the menu bar */
-   menu = setup_menu(vbox);
+   setup_menu(vbox);
 #endif
 
    /* handle window manager close */
@@ -207,9 +201,10 @@ int main(int argc, char *argv[])
       GTK_SIGNAL_FUNC(destroy), NULL);
 
    /* create the varrious subsystems */
-   mdisp = setupModeDisplay(vbox);
-   if(drawButtons) btns = setupButtons(vbox, btn_font);
-   lcd = setupLCD(vbox, rows, cols, disp_font);
+   setupModeDisplay(vbox);
+   if (drawButtons)
+       setupButtons(vbox, btn_font);
+   setupLCD(vbox, rows, cols, disp_font);
 
    /* Create pixmap of depth 1 (bitmap) for icon */
    gtk_widget_realize(main_w);

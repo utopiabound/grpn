@@ -31,7 +31,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 /* get the space for the data */
 Number ** mallocData(Number **d, int rows, int cols){
-   int i, j;
    int size;
    Number **p;
 
@@ -103,11 +102,11 @@ void setMatrix(Matrix *a, Number *b, int row, int col){
 
 Matrix * setMatrixMatrix(Matrix *a, Matrix *b){
    int i, j;
-   Number *n1;
    Number **ptr1, **ptr2;
 
-   if(a == NULL || b == NULL) 
-      { fprintf(stderr, "setMatrixMatrix(NULL)\n"); exit(0); }
+   if(a == NULL || b == NULL) {
+       fprintf(stderr, "setMatrixMatrix(NULL)\n"); exit(0);
+   }
 
    /* initalize the stuff in p */
    a->data = mallocData(NULL, b->rows, b->cols);
