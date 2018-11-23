@@ -120,8 +120,6 @@ void lcdContinueHighlight(int x, int y);
 #define TARGET_COMPOUND_TEXT 0x4
 
 GtkWidget *setupLCD(GtkWidget *parent, int rows, int cols, char *font){
-   int i;
-   int width;
    int wid, hgt;
 #ifdef GTK_VER_1_1
    static GtkTargetEntry targetlist[] = {
@@ -175,9 +173,9 @@ GtkWidget *setupLCD(GtkWidget *parent, int rows, int cols, char *font){
    }
 
    /* find max font width */
-   for(i=0; i<256; i++){
-      width = gdk_char_width(lcdFont, (gchar)i);
-      if(width < 50 && width > fontW) fontW = width;
+   for(int i=0; i<256; i++){
+       int width = gdk_char_width(lcdFont, (gchar)i);
+       if (width < 50 && width > fontW) fontW = width;
    }
 
    /* globals we use all over the place */
@@ -281,8 +279,8 @@ void clearLCDwindow(){
  * note: we don't redraw the lcd here, that is done by drawStackLCD().
  */
 void calcStackLCD(){
-   int i, j;
-   int strLen, pLen, curPos;
+   int i, j, pLen, curPos;
+   size_t strLen;
    char *c, *p;
    char *txt;     /* the number */
    char label[16];  /* the stack number label */
@@ -312,11 +310,10 @@ void calcStackLCD(){
    }
 
    /* check for an error */
-   if(isError()){
+   if (isError()) {
       top = 1;
       c = getStringError();
-      strLen = strlen(c);
-      if(strLen > lcdWidth) strLen = lcdWidth;
+      strLen = strnlen(c, lcdWidth);
       strncpy(lcdText[0], c, strLen);
    } else {
       top = 0;
@@ -346,8 +343,7 @@ void calcStackLCD(){
 
       /* print the stack number label */
       sprintf(label, "%d: ", indx+1);
-      labelLen = strlen(label);
-      if(labelLen > lcdWidth) labelLen = lcdWidth;
+      labelLen = strnlen(label, lcdWidth);
       strncpy(lcdText[row], label, labelLen);
 
       /* print the number */
@@ -374,8 +370,7 @@ void calcStackLCD(){
    /* fill in the rest of the indexes */
    for(i=indx, j=bottom; j>top; i++, j--){
       sprintf(label, "%d: ", i+1);
-      labelLen = strlen(label);
-      if(labelLen > lcdWidth) labelLen = lcdWidth;
+      labelLen = strnlen(label, lcdWidth);
       strncpy(lcdText[j-1], label, labelLen);
    }
 
@@ -387,9 +382,7 @@ void calcStackLCD(){
       if(curPos > lcdWidth){
          txt += (curPos - lcdWidth);
       }
-      strLen = strlen(txt);
-      if(strLen > lcdWidth) strLen = lcdWidth;
-
+      strLen = strnlen(txt, lcdWidth);
       strncpy(lcdText[lcdHeight-1], txt, strLen);
    }
 
@@ -403,7 +396,7 @@ void calcStackLCD(){
 void drawStackLCD(){
    int i;
    int curPos;
-   int strt, stop;
+   int strt = 0, stop;
    GdkGC *drawgc;
 #ifdef USE_PANGO
    PangoRectangle rect;
@@ -681,7 +674,9 @@ static gint lcdButtonPressEvnt(GtkWidget *widget, GdkEventButton *event) {
    if(event->button == 1){
       lcdStartHighlight(event->x, event->y, event->time);
    }
+   return TRUE;
 }
+
 static gint lcdButtonReleaseEvnt(GtkWidget *widget, GdkEventButton *event) {
    switch(event->button){
       case 1:       /* stop highlighting an area */
@@ -697,7 +692,7 @@ static gint lcdButtonReleaseEvnt(GtkWidget *widget, GdkEventButton *event) {
 	 }
 	 break;
    }
- 
+   return TRUE; 
 }
 
 
@@ -727,7 +722,6 @@ static gint lcdMotionEvnt(GtkWidget *widget, GdkEventMotion *event)
    }
 
    return TRUE;
-
 }
 
 #ifdef GTK_VER_1_1
@@ -763,7 +757,7 @@ void convertSelection(
       height = hiY2 - hiY1 + 1;
       len = (width + 1) * height;
 
-      str = (char *)malloc(len * sizeof(char));
+      str = malloc(len * sizeof(*str));
 
       for(i=0; i<height; i++){
          strncpy(str+(i*(width+1)), &(lcdText[i+hiY1][hiX1]), width);
@@ -782,7 +776,7 @@ void convertSelection(
 	       selection,
                GDK_SELECTION_TYPE_STRING,
                8,
-               str,
+               (guchar*)str,
                len-1);
             break;
          case TARGET_TEXT:

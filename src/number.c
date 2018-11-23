@@ -204,7 +204,6 @@ Number * invNumber(Number *a){
 }
 
 Number * lnNumber(Number *a){
-   Real *r1;
    Cmplx *c1;
    Number *c = newNumber();
 
@@ -241,7 +240,6 @@ Number * lnNumber(Number *a){
 }
 
 Number * logNumber(Number *a){
-   Real *r1;
    Cmplx *c1;
    Number *c = newNumber();
 

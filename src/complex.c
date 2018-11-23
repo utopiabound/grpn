@@ -343,10 +343,10 @@ Real * absCmplx(Cmplx *a){
 
 Real * thetaCmplx(Cmplx *a){
    int sign_re;
-   Real *r1, *r2;
+   Real *r1;
    Real *theta;
 
-   r2 = atanEqReal(divReal(a->im, a->re));
+   r1 = atanEqReal(divReal(a->im, a->re));
 
    sign_re = cmpReal(a->re, realZero);
 
@@ -358,21 +358,21 @@ Real * thetaCmplx(Cmplx *a){
       else /* 90 deg */
          theta = setRealDouble(newReal(), M_PI/2.0);
 
-      freeReal(r2);
+      freeReal(r1);
    }
    /* quadrant 2 and 3 */
    else if(-1 == sign_re){
 
       /* quad 3 */
       if(-1 == cmpReal(a->im, realZero))
-         theta = subEqReal(r2, realPi);
+         theta = subEqReal(r1, realPi);
       else /* quad 2 */
-         theta = addEqReal(r2, realPi);
+         theta = addEqReal(r1, realPi);
 
    }
    /* quadrant 1 and 4 */
    else{
-      theta = r2;
+      theta = r1;
    }
 
    return theta;
@@ -461,7 +461,7 @@ Cmplx * expEqCmplx(Cmplx *a){
 Cmplx * sinCmplx(Cmplx *a){
    Real *r1;
    Cmplx *p;
-   Cmplx *c1, *c2, *c3, *c4, *c5;
+   Cmplx *c1, *c2, *c4, *c5;
 
    c1 = mulCmplx(cmplxI, a);
    c2 = expCmplx(c1);
@@ -632,7 +632,7 @@ Cmplx * atanCmplx(Cmplx *a){
 
 /* multiply 2 Cmplx numbers */
 Cmplx * mulCmplx(Cmplx *a, Cmplx *b){
-   Real *r1, *r2, *r3, *r4, *r5, *r6;
+   Real *r1, *r2, *r3, *r4;
    Cmplx *p = newCmplx();
 
    r1 = mulReal(a->re, b->re);
