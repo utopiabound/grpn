@@ -3,7 +3,7 @@
 %endif
 
 Name:		grpn
-Version:	1.5.1
+Version:	1.5.2
 Release:	1%{?dist}
 Summary:	A RPN calcuator for real and complex numbers with a GTK / X11 GUI
 Group:		Applications/System

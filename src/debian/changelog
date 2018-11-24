@@ -1,3 +1,9 @@
+grpn (1.5.2-1) stable; urgency=low
+
+  *  refactor code in order to avoid compiler warnings
+
+ -- Jens Getreu  <getreu@web.de> Sat, 24 Nov 2018 02:55:02 +0200
+
 grpn (1.5.1-1) stable; urgency=low
 
   *  make Help dialog mono-spaced

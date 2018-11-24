@@ -123,3 +123,6 @@ v1.5.0
 v1.5.1
    Make Help dialog mono-spaced.
    Add e and i as type-able constants.
+
+v1.5.2
+   Refactor code in order to avoid compiler warnings.
