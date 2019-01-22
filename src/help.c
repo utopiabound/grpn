@@ -264,22 +264,22 @@ void help_popup(){
 }
 
 void about_popup(){
-   int i;
-   char *htxt;
-   static GtkWidget *aboutDialog = NULL;
+    int i;
+    char *htxt;
+    static GtkWidget *aboutDialog = NULL;
  
-   if(NULL == (htxt = (char*)malloc((10000)*sizeof(char)))){
-      perror("about_popup: malloc");
-      return;
-   } else {
-      strcpy(htxt, GRPN_VERSION);
-      strcat(htxt, ABOUT_TXT);
-      //popup_window wants a long text to scroll
-      for(i=0; i<60; i++){
-	       strcat(htxt, "\n");
-      }
-   }
-   popup_window(&aboutDialog, htxt, "About");
-   free(htxt);
+    if(NULL == (htxt = (char*)malloc((10000)*sizeof(char)))){
+	perror("about_popup: malloc");
+	return;
+    } else {
+	sprintf(htxt, "\nGRPN  %s\n\n", GRPN_VERSION);
+	strcat(htxt, ABOUT_TXT);
+	//popup_window wants a long text to scroll
+	for(i=0; i<60; i++){
+	    strcat(htxt, "\n");
+	}
+    }
+    popup_window(&aboutDialog, htxt, "About");
+    free(htxt);
 }
 

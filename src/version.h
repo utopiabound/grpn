@@ -21,11 +21,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __VERSION_H
 #define __VERSION_H
 
-// used in help.c
-#define GRPN_VERSION \
-"\n\
-GRPN  1.5.2\n\
-\n\
-"
+#define GRPN_VERSION "1.5.2"
 
 #endif

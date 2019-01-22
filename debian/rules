@@ -12,7 +12,7 @@ include /usr/share/dpatch/dpatch.make
 build: build-stamp
 build-stamp: patch
 	dh_testdir
-	$(MAKE)
+	$(MAKE) -C src
 	touch build-stamp
 
 clean: clean1 unpatch

@@ -21,17 +21,15 @@ has 4 different radix modes, supports general math functions along
 with logarithmic and trigonometric functions.  Calculator stack is
 only limited by free memory.
 
-%prep 
+%prep
 %setup -q -n %{name}
 
 %build
-cd src
-make %{?_smp_mflags}
+%make_build -C src %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-cd src
-%make_install PREFIX=%{_prefix} MANDIR=%{_mandir}
+%make_install -C src PREFIX=%{_prefix} MANDIR=%{_mandir}
 %{__install} -D debian/grpn.desktop %{?buildroot}/%{_desktopdir}/grpn.desktop
 %{__install} -D debian/grpn.xpm %{?buildroot}/%{_pixmapsdir}/grpn.xpm
 
