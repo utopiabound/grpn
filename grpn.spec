@@ -32,6 +32,7 @@ rm -rf $RPM_BUILD_ROOT
 %make_install -C src PREFIX=%{_prefix} MANDIR=%{_mandir}
 %{__install} -D debian/grpn.desktop %{?buildroot}/%{_desktopdir}/grpn.desktop
 %{__install} -D debian/grpn.xpm %{?buildroot}/%{_pixmapsdir}/grpn.xpm
+%{__install} -D debian/grpn.png %{?buildroot}/%{_pixmapsdir}/grpn.png
 
 %files
 %doc src/LICENSE src/CHANGES src/README

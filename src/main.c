@@ -31,7 +31,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #endif
 #include <gtk/gtk.h>
 
-#include "icon_bitmap"
+#include "grpn.xbm"
 #include "stack.h"
 #include "menu.h"
 #include "mode.h"
@@ -208,8 +208,7 @@ int main(int argc, char *argv[])
 
    /* Create pixmap of depth 1 (bitmap) for icon */
    gtk_widget_realize(main_w);
-   icon_bitmap = gdk_bitmap_create_from_data(main_w->window,
-      icon_bitmap_bits, icon_bitmap_width, icon_bitmap_height);
+   icon_bitmap = gdk_bitmap_create_from_data(main_w->window, (char *)grpn_bits, grpn_width, grpn_height);
    gdk_window_set_icon(main_w->window, NULL, icon_bitmap, NULL);
 
    gtk_widget_show(main_w);

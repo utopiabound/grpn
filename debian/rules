@@ -34,7 +34,7 @@ install-stamp: build-stamp
 	install -D -m644 debian/grpn.desktop $(CURDIR)/debian/$(PACKAGE)/usr/share/applications/grpn.desktop
 	install -o root -m 0755 $(CURDIR)/$(PACKAGE) $(CURDIR)/debian/$(PACKAGE)/usr/bin/
 	install -d debian/grpn/usr/share/pixmaps
-	cp debian/grpn.xpm debian/grpn/usr/share/pixmaps/grpn.xpm
+	cp debian/grpn.{xpm,png} debian/grpn/usr/share/pixmaps/
 
 # Build architecture-independent files here.
 binary-indep: build install
