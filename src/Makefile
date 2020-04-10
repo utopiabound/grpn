@@ -16,9 +16,9 @@ CC = gcc
 # add -DUSE_GNOME if you want to make grpn GNOME compliant.
 
 
-CFLAGS = -Wall -g -O2 -I/usr/X11/include -DUSE_PANGO `pkg-config --cflags gtk+-2.0` -DGTK_VER_1_1
+CFLAGS = -Wall -g -O2 -I/usr/X11/include `pkg-config --cflags gtk+` -DGTK_VER_1_1
 
-DFLAGS =  -L/usr/X11/lib 
+DFLAGS =  -L/usr/X11/lib `pkg-config --libs gtk+`
 
 # end of user configurable section
 

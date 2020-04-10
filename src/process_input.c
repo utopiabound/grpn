@@ -37,62 +37,59 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 
 void processInput(int ksym, int isCtrl, char bb, char chr){
-   int keysym;
-   char c;
+    int keysym = ksym;
+    char c;
 
-   gchar* cliptext; 
-   GtkClipboard* clipboard;
-   Number *num;
-   
-
-
-   if(ksym == 0){
-      switch(chr){
-         case ' ':
-         case '\n':
-         case '\t':
+    if (ksym == 0){
+#if 0
+	switch(chr){
+	case ' ':
+	case '\n':
+	case '\t':
 	    keysym = GDK_space;
 	    break;
-         case '+':
+	case '+':
 	    keysym = GDK_plus;
 	    break;
-         case '-':
+	case '-':
 	    keysym = GDK_minus;
 	    break;
-         case '/':
+	case '/':
 	    keysym = GDK_slash;
 	    break;
-         case '*':
+	case '*':
 	    keysym = GDK_asterisk;
 	    break;
-         case '^':
+	case '^':
 	    keysym = GDK_asciicircum;
 	    break;
-         default:
+	default:
             keysym = GDK_4;  /* just pick one */
             break;
-      }
-   } else {
-      keysym = ksym;
-   }
+	}
+    } else {
+	keysym = ksym;
+    }
+    if(isCtrl){
+	GtkClipboard* clipboard;
+	Number *num;
+	gchar* cliptext;
 
-   if(isCtrl){
-      switch(keysym){
-         case GDK_c:      /*copy to clipboard*/
-                if(NULL == (num = getStackEle(0))) break;
-                if(NULL == (cliptext = printNumber(num))) break;
+	switch(keysym){
+	case GDK_c:      /*copy to clipboard*/
+	    if(NULL == (num = getStackEle(0))) break;
+	    if(NULL == (cliptext = printNumber(num))) break;
 
-             	clipboard = gtk_clipboard_get (GDK_SELECTION_CLIPBOARD);
-             	gtk_clipboard_set_text (clipboard, cliptext, -1);
-             	gtk_clipboard_store(clipboard);
-                free(cliptext);
-            break;
-      }
-
-      /* ignore the ctrl key */
-      return;
-   }
-
+	    clipboard = gtk_clipboard_get (GDK_SELECTION_CLIPBOARD);
+	    gtk_clipboard_set_text (clipboard, cliptext, -1);
+	    gtk_clipboard_store(clipboard);
+	    free(cliptext);
+	    break;
+	}
+#endif
+	/* ignore the ctrl key */
+	return;
+    }
 
    /* this will clear any error string */
    resetError();
