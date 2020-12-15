@@ -145,9 +145,17 @@ GtkWidget *setupLCD(GtkWidget *parent, int rows, int cols, char *font){
    pango_metrics =
       pango_context_get_metrics(pango_context, pango_desc, pango_language_get_default());
 
-   fontW = (pango_font_metrics_get_approximate_digit_width(pango_metrics))/PANGO_SCALE;
-   fontH = (pango_font_metrics_get_ascent(pango_metrics) + pango_font_metrics_get_descent(pango_metrics))/PANGO_SCALE;
-   fontD = pango_font_metrics_get_descent(pango_metrics)/PANGO_SCALE;
+   GdkScreen * screen = gdk_screen_get_default();
+   gdouble resolution;
+   if(screen == NULL) {
+      resolution = 96.0;
+   } else {
+      resolution = gdk_screen_get_resolution(screen);
+   }
+
+   fontW = (pango_font_metrics_get_approximate_digit_width(pango_metrics))/PANGO_SCALE * resolution / 96.0;
+   fontH = (pango_font_metrics_get_ascent(pango_metrics) + pango_font_metrics_get_descent(pango_metrics))/PANGO_SCALE * resolution / 96.0;
+   fontD = pango_font_metrics_get_descent(pango_metrics)/PANGO_SCALE * resolution / 96.0;
 
    gtk_widget_modify_font(lcdDA, pango_desc);
 #else
