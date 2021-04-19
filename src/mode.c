@@ -117,7 +117,7 @@ void refreshModeDisplay(){
    char *str;
 
    str = getModeDisplayString();
-   gtk_label_set(GTK_LABEL(ModeDisplay), str);
+   gtk_label_set_text(GTK_LABEL(ModeDisplay), str);
 
 }
 

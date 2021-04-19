@@ -11,27 +11,28 @@ CC = gcc
 
 # NOTE:
 #
-# add -DGTK_VER_1_1 to the CFLAGS if you are using GTK version 1.1.0 or higher
-#
-# add -DUSE_GNOME if you want to make grpn GNOME compliant.
+# uncomment -DUSE_GNOME if you want to make grpn GNOME compliant.
+# uncomment -DUSE_PANGO if you want to use pango fonts (via gtk2)
 
 
-CFLAGS = -Wall -g -O2 -I/usr/X11/include `pkg-config --cflags gtk+` -DGTK_VER_1_1
+CFLAGS = -Wall -g -O2 $(shell pkg-config --cflags x11 gtk+-2.0)
+#CFLAGS += -DUSE_GNOME `pkg-config --cflags libgnomeui-2.0`
+CFLAGS +=  -DUSE_PANGO
 
-DFLAGS =  -L/usr/X11/lib `pkg-config --libs gtk+`
+LIBS = $(shell pkg-config --libs x11 gtk+-2.0) -lm -lgmp
+#LIBS += `pkg-config --libs libgnomeui-2.0`
+#LIBS +=  `pkg-config --libs pango`
 
 # end of user configurable section
 
 
 
-OBJS = test_gtk_ver.o real.o complex.o matrix.o number.o \
+OBJS = real.o complex.o matrix.o number.o \
         funcs.o constant.o button_def.o run_cmd.o \
 	main.o stack.o lcd.o setup_menu.o callback_menu.o \
 	process_input.o options.o \
 	setup_buttons.o callback_buttons.o editor.o \
 	error.o help.o mode.o undo.o
-
-LIBS   = `pkg-config --libs gtk+-2.0` -lX11 -lm
 
 grpn:	$(OBJS)
 	$(CC) $(DFLAGS) -o $@ $(OBJS) $(LIBS) 
@@ -39,7 +40,7 @@ grpn:	$(OBJS)
 pure:	$(OBJS)
 	$(PURIFY) $(CC) $(DFLAGS) -o $@ $(OBJS) $(LIBS) 
 
-install:	grpn
+install: grpn
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
 	cp grpn $(DESTDIR)$(PREFIX)/bin
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/grpn

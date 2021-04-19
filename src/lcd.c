@@ -25,6 +25,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkkeysyms.h>
+#ifdef USE_PANGO
+#include <pango/pango.h>
+#endif
 
 #include "lcd.h"
 #include "mode.h"
@@ -101,13 +104,8 @@ static gint lcdKeyReleaseEvnt(GtkWidget *widget, GdkEventKey *event);
 
 void lcdPasteCB(GtkWidget *, GtkSelectionData *, gpointer);
 gint loseSelection(GtkWidget *, GdkEventSelection *);
-#ifdef GTK_VER_1_1
 void convertSelection(GtkWidget *, GtkSelectionData *,
    guint, guint, gpointer);
-#else
-void convertSelection(GtkWidget *, GtkSelectionData *,
-   gpointer);
-#endif
 
 void lcdGetSelection(int time);
 void lcdStartHighlight(int x, int y, int time);
@@ -121,7 +119,6 @@ void lcdContinueHighlight(int x, int y);
 
 GtkWidget *setupLCD(GtkWidget *parent, int rows, int cols, char *font){
    int wid, hgt;
-#ifdef GTK_VER_1_1
    static GtkTargetEntry targetlist[] = {
      /* Target          Flags  Info      */
      { "STRING",        0,     TARGET_STRING },
@@ -129,7 +126,6 @@ GtkWidget *setupLCD(GtkWidget *parent, int rows, int cols, char *font){
      { "COMPOUND_TEXT", 0,     TARGET_COMPOUND_TEXT } 
    };
    static gint ntargets = sizeof(targetlist) / sizeof(targetlist[0]);
-#endif
 
    /* store arguments */
    lcdWidth = cols;
@@ -213,16 +209,11 @@ GtkWidget *setupLCD(GtkWidget *parent, int rows, int cols, char *font){
    gtk_signal_connect(GTK_OBJECT(lcdDA), "selection_request_event",
                      (GtkSignalFunc)convertSelection, NULL);
    */
-#ifdef GTK_VER_1_1
    gtk_selection_add_targets(lcdDA,
       GDK_SELECTION_PRIMARY, targetlist, ntargets);
 
    gtk_signal_connect(GTK_OBJECT(lcdDA), "selection_get",
       (GtkSignalFunc)convertSelection, NULL);
-#else
-   gtk_selection_add_handler(lcdDA, GDK_SELECTION_PRIMARY,
-      GDK_SELECTION_TYPE_STRING, convertSelection, NULL);
-#endif
 
 
    /* Event signals (Input) */
@@ -724,19 +715,12 @@ static gint lcdMotionEvnt(GtkWidget *widget, GdkEventMotion *event)
    return TRUE;
 }
 
-#ifdef GTK_VER_1_1
 void convertSelection(
    GtkWidget *widget,
    GtkSelectionData *selection,
    guint      info,
    guint      time,
    gpointer   data)
-#else 
-void convertSelection(
-   GtkWidget *widget,
-   GtkSelectionData *selection,
-   gpointer   data)
-#endif
 {
    int i;
    int width, height;
@@ -765,11 +749,7 @@ void convertSelection(
       }
       str[len-1] = '\0';
 
-#ifdef GTK_VER_1_1
       switch(info){
-#else
-      switch(selection->target){
-#endif
 /*         case GDK_TARGET_STRING: */
          case TARGET_STRING:
 	    gtk_selection_data_set(

@@ -34,8 +34,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define REAL_OK  0x4
 
 struct _Real {
-   char ok;
-   double num;
+    char ok;
+    double num;
 };
 
 Real * newReal();

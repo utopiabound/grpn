@@ -21,6 +21,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <stdlib.h>
 #include <string.h>
 #include <gtk/gtk.h>
+#ifdef USE_PANGO
+#include <pango/pango.h>
+#endif
 
 #include "help.h"
 #include "funcs.h"
@@ -137,6 +140,8 @@ void popup_window(GtkWidget **dialog, char *txt, char *title){
    GtkWidget *button;
 #ifdef USE_PANGO
    PangoFontDescription *pango_desc;
+#else
+   GdkFont *gfont;
 #endif
 
  
@@ -148,11 +153,7 @@ void popup_window(GtkWidget **dialog, char *txt, char *title){
       gtk_signal_connect(GTK_OBJECT(*dialog), "destroy",
                         GTK_SIGNAL_FUNC(gtk_widget_destroyed),
                         dialog);
-#ifdef GTK_VER_1_1
       gtk_container_set_border_width(GTK_CONTAINER(*dialog), 5); 
-#else
-      gtk_container_border_width(GTK_CONTAINER(*dialog), 5); 
-#endif
 
       gtk_window_set_title(GTK_WINDOW(*dialog), title);
       gtk_widget_set_usize(*dialog, 570, 470);
@@ -162,11 +163,8 @@ void popup_window(GtkWidget **dialog, char *txt, char *title){
       gtk_widget_show(vbox);
 
       scrolled_win = gtk_scrolled_window_new (NULL, NULL);
-#ifdef GTK_VER_1_1
+
       gtk_container_set_border_width(GTK_CONTAINER(scrolled_win), 5); 
-#else
-      gtk_container_border_width(GTK_CONTAINER(scrolled_win), 5); 
-#endif
       gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW (scrolled_win),
                                      GTK_POLICY_AUTOMATIC,
                                      GTK_POLICY_AUTOMATIC);
@@ -175,16 +173,22 @@ void popup_window(GtkWidget **dialog, char *txt, char *title){
 
       label = gtk_label_new(txt);
       gtk_label_set_justify(GTK_LABEL(label), GTK_JUSTIFY_LEFT);
-#ifdef GTK_VER_1_1
+
       gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolled_win), label);
-#else
-      gtk_container_add(GTK_CONTAINER(scrolled_win), label);
-#endif
+
 #ifdef USE_PANGO
       // Pick the default Monospaced font
       pango_desc = pango_font_description_from_string("Mono");
       if (pango_desc)
 	  gtk_widget_modify_font(label, pango_desc);
+#else
+      gfont = gdk_font_load("Mono");
+      if (gfont != NULL) {
+	   GtkStyle *style;
+	   style = gtk_style_copy(gtk_widget_get_default_style());
+	   gtk_style_set_font(style, gfont);
+	   gtk_style_attach(style, label);
+       }
 #endif
       gtk_widget_show(label);
 

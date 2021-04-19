@@ -56,7 +56,7 @@ GtkWidget *createButton(
 	   GtkStyle *style;
 	   style = gtk_style_copy(gtk_widget_get_default_style());
 	   gtk_style_set_font(style, font);
-	   gtk_style_attach(style, label);
+	   style = gtk_style_attach(style, label);
        }
 #endif
    }
@@ -67,7 +67,7 @@ GtkWidget *createButton(
 
 
    /* the space around the button 
-   gtk_container_border_width(GTK_CONTAINER(btn), 10);
+   gtk_container_set_border_width(GTK_CONTAINER(btn), 10);
    */
 
    /* when the button is clicked, we call the "callback" function */
