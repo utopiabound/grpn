@@ -3,7 +3,6 @@ callback_buttons.o: callback_buttons.c buttons.h funcs.h editor.h error.h \
  lcd.h
 callback_menu.o: callback_menu.c menu.h lcd.h mode.h funcs.h help.h \
  complex.h typedefs.h number.h real.h matrix.h options.h
-circle.o: circle.c
 complex.o: complex.c complex.h typedefs.h real.h number.h matrix.h \
  constant.h mode.h lcd.h
 constant.o: constant.c real.h typedefs.h complex.h
@@ -29,7 +28,7 @@ run_cmd.o: run_cmd.c buttons.h funcs.h editor.h error.h
 setup_buttons.o: setup_buttons.c buttons.h funcs.h editor.h
 setup_menu.o: setup_menu.c menu.h mode.h options.h
 stack.o: stack.c stack.h typedefs.h number.h real.h complex.h matrix.h
-test.o: test.c test.h number.h typedefs.h real.h complex.h matrix.h
-test_gtk_ver.o: test_gtk_ver.c
+test.o: test.c test.h number.h typedefs.h real.h complex.h matrix.h \
+ funcs.h
 undo.o: undo.c undo.h error.h stack.h typedefs.h number.h real.h \
  complex.h matrix.h

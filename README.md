@@ -14,3 +14,5 @@ Author of grpn is: Paul Wilkins  <paul "`dot`" wilkins "`at`" analog "`dot`" com
 Changes since version `1.1.2-3`: Jens Getreu <getreu "`at`" web "`dot`" de> +
 Support for Pango-fonts by Jean-Pierre Demailly.
 
+Changes since version `1.5.2`: Nathaniel Clark
+

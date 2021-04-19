@@ -11,13 +11,13 @@ CC = gcc
 
 # NOTE:
 #
-# uncomment -DUSE_GNOME if you want to make grpn GNOME compliant.
-# uncomment -DUSE_PANGO if you want to use pango fonts (via gtk2)
-
+# add -DUSE_GNOME if you want to make grpn GNOME compliant.
+# add -DUSE_PANGO if you want to use pango fonts (via gtk2)
+CFLAG_OPTIONS = -DUSE_PANGO
 
 CFLAGS = -Wall -g -O2 $(shell pkg-config --cflags x11 gtk+-2.0)
 #CFLAGS += -DUSE_GNOME `pkg-config --cflags libgnomeui-2.0`
-CFLAGS +=  -DUSE_PANGO
+CFLAGS += ${CFLAG_OPTIONS}
 
 LIBS = $(shell pkg-config --libs x11 gtk+-2.0) -lm -lgmp
 #LIBS += `pkg-config --libs libgnomeui-2.0`
@@ -25,17 +25,21 @@ LIBS = $(shell pkg-config --libs x11 gtk+-2.0) -lm -lgmp
 
 # end of user configurable section
 
-
-
 OBJS = real.o complex.o matrix.o number.o \
         funcs.o constant.o button_def.o run_cmd.o \
-	main.o stack.o lcd.o setup_menu.o callback_menu.o \
+	stack.o lcd.o setup_menu.o callback_menu.o \
 	process_input.o options.o \
 	setup_buttons.o callback_buttons.o editor.o \
 	error.o help.o mode.o undo.o
 
-grpn:	$(OBJS)
-	$(CC) $(DFLAGS) -o $@ $(OBJS) $(LIBS) 
+grpn: main.o $(OBJS)
+	$(CC) $(DFLAGS) -o $@ $? $(LIBS)
+
+test:: testor
+	./testor
+
+testor: test.o $(OBJS)
+	$(CC) -lm -lgmp -o $@ $? $(LIBS)
 
 pure:	$(OBJS)
 	$(PURIFY) $(CC) $(DFLAGS) -o $@ $(OBJS) $(LIBS) 
@@ -53,13 +57,13 @@ install: grpn
 
 depend::
 	rm -f .depend
-	$(CC) -MM $(CFLAGS) *.c >> .depend
+	$(CC) -MM ${CFLAG_OPTIONS} *.c >> .depend
 
 TAGS:
 	etags *.[ch]
 
 clean::
-	rm -f core* grpn *~ *.o TAGS
+	rm -f core* grpn *~ *.o TAGS testor
 
 include .depend
 

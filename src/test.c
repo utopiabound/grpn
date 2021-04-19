@@ -26,9 +26,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "number.h"
 #include "complex.h"
 #include "real.h"
+#include "matrix.h"
+#include "funcs.h"
 
-
-void test(){
+int main() {
 
    char *c;
    int i, j;
@@ -161,5 +162,6 @@ void test(){
 
 
    printf("done testing...\n");
+   return 0;
 }
 

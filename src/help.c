@@ -1,20 +1,20 @@
 /*
 
-Copyright (C) 2002  Paul Wilkins
+  Copyright (C) 2002  Paul Wilkins
 
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU General Public License
+  as published by the Free Software Foundation; either version 2
+  of the License, or (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the Free Software
+  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 #include <stdio.h>
@@ -32,8 +32,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "version.h"
 
 
-#define ABOUT_TXT \
-"GRPN is a graphical reverse polish notation (RPN) calculator.\n\
+#define ABOUT_TXT							\
+    "GRPN is a graphical reverse polish notation (RPN) calculator.\n\
 \n\
 By: Paul Wilkins\n\
     paul.wilkins at analog com\n\
@@ -43,11 +43,11 @@ By: Paul Wilkins\n\
     Support for Pango-fonts by Jean-Pierre Demailly.\n\
     Shift, AND, OR and XOR operators by Nathaniel Clark.\n\
     Changes since version 1.1.2-3: Jens Getreu <getreu at web.de>\n\
-\n\
-"
+    Current Maintainer (after 1.5.2): Nathaniel Clark\n\
+\n"
 
-#define HELP_TXT \
-"\
+#define HELP_TXT				\
+    "\
 GRPN is a graphical reverse polish notation (RPN) calculator.\n\
 \n\
 GRPN works with real numbers, complex numbers, matrices, and\n\
@@ -131,158 +131,150 @@ Available commands:\n\
 <space>     Push a number onto the top of the stack.\n\
 "
 
-void popup_window(GtkWidget **dialog, char *txt, char *title){
+void popup_window(GtkWidget **dialog, char *txt, char *title) {
 
 
-   GtkWidget *vbox;
-   GtkWidget *scrolled_win;
-   GtkWidget *label;
-   GtkWidget *button;
+    GtkWidget *vbox;
+    GtkWidget *scrolled_win;
+    GtkWidget *label;
+    GtkWidget *button;
 #ifdef USE_PANGO
-   PangoFontDescription *pango_desc;
+    PangoFontDescription *pango_desc;
 #else
-   GdkFont *gfont;
+    GdkFont *gfont;
 #endif
-
  
-   if (!*dialog) {
+    if (*dialog == NULL) {
+	*dialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_title(GTK_WINDOW(*dialog), title);
 
-      *dialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-      gtk_window_set_title(GTK_WINDOW(*dialog), title);
+	gtk_signal_connect(GTK_OBJECT(*dialog), "destroy",
+			   GTK_SIGNAL_FUNC(gtk_widget_destroyed),
+			   dialog);
+	gtk_container_set_border_width(GTK_CONTAINER(*dialog), 5); 
 
-      gtk_signal_connect(GTK_OBJECT(*dialog), "destroy",
-                        GTK_SIGNAL_FUNC(gtk_widget_destroyed),
-                        dialog);
-      gtk_container_set_border_width(GTK_CONTAINER(*dialog), 5); 
+	gtk_window_set_title(GTK_WINDOW(*dialog), title);
+	gtk_widget_set_usize(*dialog, 570, 470);
 
-      gtk_window_set_title(GTK_WINDOW(*dialog), title);
-      gtk_widget_set_usize(*dialog, 570, 470);
+	vbox = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(*dialog), vbox);
+	gtk_widget_show(vbox);
 
-      vbox = gtk_vbox_new(FALSE, 0);
-      gtk_container_add(GTK_CONTAINER(*dialog), vbox);
-      gtk_widget_show(vbox);
+	scrolled_win = gtk_scrolled_window_new (NULL, NULL);
 
-      scrolled_win = gtk_scrolled_window_new (NULL, NULL);
+	gtk_container_set_border_width(GTK_CONTAINER(scrolled_win), 5); 
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW (scrolled_win),
+				       GTK_POLICY_AUTOMATIC,
+				       GTK_POLICY_AUTOMATIC);
+	gtk_box_pack_start(GTK_BOX(vbox), scrolled_win, TRUE, TRUE, 0);
+	gtk_widget_show(scrolled_win);
 
-      gtk_container_set_border_width(GTK_CONTAINER(scrolled_win), 5); 
-      gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW (scrolled_win),
-                                     GTK_POLICY_AUTOMATIC,
-                                     GTK_POLICY_AUTOMATIC);
-      gtk_box_pack_start(GTK_BOX(vbox), scrolled_win, TRUE, TRUE, 0);
-      gtk_widget_show(scrolled_win);
+	label = gtk_label_new(txt);
+	gtk_label_set_justify(GTK_LABEL(label), GTK_JUSTIFY_LEFT);
 
-      label = gtk_label_new(txt);
-      gtk_label_set_justify(GTK_LABEL(label), GTK_JUSTIFY_LEFT);
-
-      gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolled_win), label);
+	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolled_win), label);
 
 #ifdef USE_PANGO
-      // Pick the default Monospaced font
-      pango_desc = pango_font_description_from_string("Mono");
-      if (pango_desc)
-	  gtk_widget_modify_font(label, pango_desc);
+	// Pick the default Monospaced font
+	pango_desc = pango_font_description_from_string("Mono");
+	if (pango_desc)
+	    gtk_widget_modify_font(label, pango_desc);
 #else
-      gfont = gdk_font_load("Mono");
-      if (gfont != NULL) {
-	   GtkStyle *style;
-	   style = gtk_style_copy(gtk_widget_get_default_style());
-	   gtk_style_set_font(style, gfont);
-	   gtk_style_attach(style, label);
-       }
+	gfont = gdk_font_load("fixed");
+	if (gfont != NULL) {
+	    GtkStyle *style;
+	    style = gtk_style_copy(gtk_widget_get_default_style());
+	    gtk_style_set_font(style, gfont);
+	    gtk_style_attach(style, label);
+	}
 #endif
-      gtk_widget_show(label);
+	gtk_widget_show(label);
 
-      button = gtk_button_new_with_label("Dismiss");
-      gtk_signal_connect_object(GTK_OBJECT(button), "clicked",
-                                 GTK_SIGNAL_FUNC(gtk_widget_destroy),
-                                 GTK_OBJECT(*dialog));
-      gtk_box_pack_end(GTK_BOX(vbox), button, FALSE, FALSE, 0);
-      GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-      /* gtk_widget_grab_default(button);  This puts an ugly box around the botton */
-      gtk_widget_show(button);
+	button = gtk_button_new_with_label("Dismiss");
+	gtk_signal_connect_object(GTK_OBJECT(button), "clicked",
+				  GTK_SIGNAL_FUNC(gtk_widget_destroy),
+				  GTK_OBJECT(*dialog));
+	gtk_box_pack_end(GTK_BOX(vbox), button, FALSE, FALSE, 0);
+	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
+	/* gtk_widget_grab_default(button);  This puts an ugly box around the botton */
+	gtk_widget_show(button);
  
-   }
+    }
 
-   if (!GTK_WIDGET_VISIBLE(*dialog))
-      gtk_widget_show(*dialog);
-   else
-      gtk_widget_destroy(*dialog);
+    if (!GTK_WIDGET_VISIBLE(*dialog))
+	gtk_widget_show(*dialog);
+    else
+	gtk_widget_destroy(*dialog);
 
 }
 
-void license_popup(){
-   int i;
-   char *htxt;
-   static GtkWidget *licenseDialog = NULL;
+void license_popup() {
+    int i;
+    char *htxt;
+    static GtkWidget *licenseDialog = NULL;
 
-   if(NULL == (htxt = (char*)malloc((10000)*sizeof(char)))){
-      perror("license_popup: malloc");
-      return;
-   } else {
-      strcpy(htxt, LICENSE_TXT);
-      //popup_window wants a long text to scroll
-      for(i=0; i<60; i++){
-	       strcat(htxt, "\n");
-      }
-   }
-   popup_window(&licenseDialog, htxt, "License");
-   free(htxt);
+    htxt = malloc(sizeof(LICENSE_TXT)+1);
+    if (htxt == NULL) {
+	perror("license_popup: malloc");
+	return;
+    }
+
+    strcpy(htxt, LICENSE_TXT);
+    popup_window(&licenseDialog, htxt, "License");
+    free(htxt);
 }
 
-void help_popup(){
-   int i, j, k;
-   int cmds;
-   int len;
-   char *htxt;
-   char *cmd;
-   static GtkWidget *helpDialog = NULL;
+void help_popup() {
+    int i, j, k;
+    int cmds;
+    int len;
+    char *htxt;
+    char *cmd;
+    static GtkWidget *helpDialog = NULL;
 
-   cmds = 0;
-   for(i=0; i<NumFunctionRows; i++){
-      cmds += rowinf[i].numBtns;
-   }
-   if(NULL == (htxt = (char*)malloc((10000+cmds*60)*sizeof(char)))){
-      perror("help_popup: malloc");
-      return;
-   } else {
-      strcpy(htxt, HELP_TXT);
-      // append the list of commands to the help text
-      for(i=0; i<NumFunctionRows; i++){
-	 for(j=0; j<rowinf[i].numBtns; j++){
+    cmds = 0;
+    for(i = 0; i < NumFunctionRows; i++) {
+	cmds += rowinf[i].numBtns;
+    }
+    htxt = malloc(sizeof(HELP_TXT) + cmds*60);
+    if (htxt == NULL) {
+	perror("help_popup: malloc");
+	return;
+    }
+
+    strcpy(htxt, HELP_TXT);
+    // append the list of commands to the help text
+    for(i = 0; i < NumFunctionRows; i++) {
+	for(j = 0; j < rowinf[i].numBtns; j++){
 	    cmd = rowinf[i].fi[j].cmd;
 	    if(cmd != NULL){
-	       strcat(htxt, cmd);
-	       len = 12 - strlen(cmd);
-	       for(k=0; k<len; k++) strcat(htxt, " ");
-	       strcat(htxt, rowinf[i].fi[j].help);
-	       strcat(htxt, "\n");
+		strcat(htxt, cmd);
+		len = 12 - strlen(cmd);
+		for (k = 0; k < len; k++)
+		    strcat(htxt, " ");
+		strcat(htxt, rowinf[i].fi[j].help);
+		strcat(htxt, "\n");
 	    }
-	 }
-      }
-   }
+	}
+    }
 
-   popup_window(&helpDialog, htxt, "Help");
-
-   free(htxt);
-
+    popup_window(&helpDialog, htxt, "Help");
+    free(htxt);
 }
 
 void about_popup(){
     int i;
     char *htxt;
     static GtkWidget *aboutDialog = NULL;
- 
-    if(NULL == (htxt = (char*)malloc((10000)*sizeof(char)))){
+
+    htxt = malloc(sizeof(ABOUT_TXT)+1);
+    if (htxt == NULL) {
 	perror("about_popup: malloc");
 	return;
-    } else {
-	sprintf(htxt, "\nGRPN  %s\n\n", GRPN_VERSION);
-	strcat(htxt, ABOUT_TXT);
-	//popup_window wants a long text to scroll
-	for(i=0; i<60; i++){
-	    strcat(htxt, "\n");
-	}
     }
+    sprintf(htxt, "\nGRPN  %s\n\n", GRPN_VERSION);
+    strcat(htxt, ABOUT_TXT);
+
     popup_window(&aboutDialog, htxt, "About");
     free(htxt);
 }
