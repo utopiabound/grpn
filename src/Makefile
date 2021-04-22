@@ -18,6 +18,7 @@ CFLAG_OPTIONS = -DUSE_PANGO
 CFLAGS = -Wall -g -O2 $(shell pkg-config --cflags x11 gtk+-2.0)
 #CFLAGS += -DUSE_GNOME `pkg-config --cflags libgnomeui-2.0`
 CFLAGS += ${CFLAG_OPTIONS}
+#-DGTK_DISABLE_DEPRECATED
 
 LIBS = $(shell pkg-config --libs x11 gtk+-2.0) -lm -lgmp
 #LIBS += `pkg-config --libs libgnomeui-2.0`
@@ -28,17 +29,17 @@ LIBS = $(shell pkg-config --libs x11 gtk+-2.0) -lm -lgmp
 OBJS = real.o complex.o matrix.o number.o \
         funcs.o constant.o button_def.o run_cmd.o \
 	stack.o lcd.o setup_menu.o callback_menu.o \
-	process_input.o options.o \
+	error.o process_input.o options.o \
 	setup_buttons.o callback_buttons.o editor.o \
-	error.o help.o mode.o undo.o
+	help.o mode.o undo.o
 
-grpn: main.o $(OBJS)
+grpn: $(OBJS) main.o
 	$(CC) $(DFLAGS) -o $@ $? $(LIBS)
 
 test:: testor
 	./testor
 
-testor: test.o $(OBJS)
+testor: $(OBJS) test.o
 	$(CC) -lm -lgmp -o $@ $? $(LIBS)
 
 pure:	$(OBJS)

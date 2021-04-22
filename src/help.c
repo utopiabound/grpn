@@ -209,7 +209,6 @@ void popup_window(GtkWidget **dialog, char *txt, char *title) {
 }
 
 void license_popup() {
-    int i;
     char *htxt;
     static GtkWidget *licenseDialog = NULL;
 
@@ -263,7 +262,6 @@ void help_popup() {
 }
 
 void about_popup(){
-    int i;
     char *htxt;
     static GtkWidget *aboutDialog = NULL;
 

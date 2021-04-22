@@ -126,3 +126,7 @@ v1.5.1
 
 v1.5.2
    Refactor code in order to avoid compiler warnings.
+
+v1.5.3
+  gtk2 support
+  Allow direct constant (e, i, pi) input

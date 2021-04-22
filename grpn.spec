@@ -25,21 +25,21 @@ only limited by free memory.
 %setup -q -n %{name}
 
 %build
-%make_build -C src %{?_smp_mflags}
+%make_build %{?_smp_mflags} grpn
 
 %install
 rm -rf $RPM_BUILD_ROOT
 %make_install -C src PREFIX=%{_prefix} MANDIR=%{_mandir}
-%{__install} -D debian/grpn.desktop %{?buildroot}/%{_desktopdir}/grpn.desktop
-%{__install} -D debian/grpn.xpm %{?buildroot}/%{_pixmapsdir}/grpn.xpm
-%{__install} -D debian/grpn.png %{?buildroot}/%{_pixmapsdir}/grpn.png
+%{__install} -m 0644 -D debian/grpn.desktop %{?buildroot}/%{_desktopdir}/grpn.desktop
+%{__install} -m 0644 -D debian/grpn.xpm %{?buildroot}/%{_pixmapsdir}/grpn.xpm
+%{__install} -m 0644 -D debian/grpn.png %{?buildroot}/%{_pixmapsdir}/grpn.png
 
 %files
-%doc src/LICENSE src/CHANGES src/README
+%doc LICENSE src/CHANGES README.md
 %{_bindir}/%{name}
 %{_mandir}/*/%{name}*
 %{_desktopdir}/grpn.desktop
-%{_pixmapsdir}/grpn.xpm
+%{_pixmapsdir}/grpn.*
 
 %changelog
 * Sat Oct 26 2013 Nathaniel Clark <Nathaniel.Clark@misrule.us> - 1.3.4-1

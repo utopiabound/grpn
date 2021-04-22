@@ -44,7 +44,7 @@ void processInput(int ksym, int isCtrl, char bb, char chr){
 	gchar* cliptext;
 
 	switch(keysym) {
-	case GDK_c:      /*copy to clipboard*/
+	case GDK_KEY_c:      /*copy to clipboard*/
 	    num = getStackEle(0);
 	    if (num == NULL)
 		break;
@@ -67,94 +67,94 @@ void processInput(int ksym, int isCtrl, char bb, char chr){
 
     /* process the line */
     switch(keysym) {
-    case GDK_space:     /* if there is something in the buffer, then */
-    case GDK_KP_Space:  /* push it onto the stack, else duplicate the */
-    case GDK_Return:    /* element on the bottom of the stack */
-    case GDK_Tab:
-    case GDK_KP_Tab:
-    case GDK_KP_Enter:
-    case GDK_KP_Insert:
-    case GDK_Linefeed:
+    case GDK_KEY_space:     /* if there is something in the buffer, then */
+    case GDK_KEY_KP_Space:  /* push it onto the stack, else duplicate the */
+    case GDK_KEY_Return:    /* element on the bottom of the stack */
+    case GDK_KEY_Tab:
+    case GDK_KEY_KP_Tab:
+    case GDK_KEY_KP_Enter:
+    case GDK_KEY_KP_Insert:
+    case GDK_KEY_Linefeed:
 	PushStack();
 	break;
 
-    case GDK_Begin:      /* used when editing the entry buffer */
-    case GDK_Home:
-    case GDK_Up:
-    case GDK_KP_Home:
-    case GDK_KP_Up:
+    case GDK_KEY_Begin:      /* used when editing the entry buffer */
+    case GDK_KEY_Home:
+    case GDK_KEY_Up:
+    case GDK_KEY_KP_Home:
+    case GDK_KEY_KP_Up:
 	homeEditor();
 	break;
 
-    case GDK_End:      /* used when editing the entry buffer */
-    case GDK_Down:
-    case GDK_KP_End:
-    case GDK_KP_Down:
+    case GDK_KEY_End:      /* used when editing the entry buffer */
+    case GDK_KEY_Down:
+    case GDK_KEY_KP_End:
+    case GDK_KEY_KP_Down:
 	endEditor();
 	break;
 
-    case GDK_Right:      /* used when editing the entry buffer */
-    case GDK_KP_Right:
+    case GDK_KEY_Right:      /* used when editing the entry buffer */
+    case GDK_KEY_KP_Right:
 	rightEditor();
 	break;
 
-    case GDK_Left:      /* used when editing the entry buffer */
-    case GDK_KP_Left:
+    case GDK_KEY_Left:      /* used when editing the entry buffer */
+    case GDK_KEY_KP_Left:
 	leftEditor();
 	break;
 
-    case GDK_BackSpace:  /* delete the last entry in the stack */
-    case GDK_Delete:     /* OR backspace over the last char typed */
-    case GDK_KP_Delete:
+    case GDK_KEY_BackSpace:  /* delete the last entry in the stack */
+    case GDK_KEY_Delete:     /* OR backspace over the last char typed */
+    case GDK_KEY_KP_Delete:
 	if (isEditingEditor()) {
-            deleteEditor();
+	    deleteEditor();
 	} else {
-            PopStack();
+	    PopStack();
 	}
 	break;
 
-    case GDK_Escape:  /* clear the entry buffer */
+    case GDK_KEY_Escape:  /* clear the entry buffer */
 	cancelEditor();
 	break;
 
-    case GDK_plus: 
-    case GDK_KP_Add:
+    case GDK_KEY_plus:
+    case GDK_KEY_KP_Add:
 	c = getPrevEditor();
 	if (c == 'e' || c == 'E'){
-            insertEditor(bb);
+	    insertEditor(bb);
 	} else {
 	    AddStack();
 	}
 	break;
 
-    case GDK_minus: 
-    case GDK_KP_Subtract:
+    case GDK_KEY_minus:
+    case GDK_KEY_KP_Subtract:
 	c = getPrevEditor();
 	if (c == 'e' || c == 'E'){
-            insertEditor(bb);
+	    insertEditor(bb);
 	} else {
 	    SubStack();
 	}
 	break;
 
-    case GDK_asterisk: 
-    case GDK_KP_Multiply:
+    case GDK_KEY_asterisk:
+    case GDK_KEY_KP_Multiply:
 	MulStack();
 	break;
 
-    case GDK_slash: 
-    case GDK_KP_Divide:
+    case GDK_KEY_slash:
+    case GDK_KEY_KP_Divide:
 	DivStack();
 	break;
 
-    case GDK_asciicircum: // '^'
+    case GDK_KEY_asciicircum: // '^'
 	PowStack();
 	break;
 
     default:  /* catch everything that's left over */
 
 	/* ascii characters */
-         
+
 	if (bb == '.') {
 	    //is the locale decimal seperator a comma?
 	    struct lconv * lc;
@@ -173,9 +173,9 @@ void processInput(int ksym, int isCtrl, char bb, char chr){
 	    }
 	}
 
-	if ((keysym >= GDK_KP_Space && keysym <= GDK_KP_9) ||
-	    (keysym >= GDK_space && keysym <= GDK_asciitilde)){
-            insertEditor(bb);
+	if ((keysym >= GDK_KEY_KP_Space && keysym <= GDK_KEY_KP_9) ||
+	    (keysym >= GDK_KEY_space && keysym <= GDK_KEY_asciitilde)){
+	    insertEditor(bb);
 	}
 
 	break;
