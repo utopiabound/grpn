@@ -21,9 +21,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <gtk/gtk.h>
-#ifdef USE_PANGO
 #include <pango/pango.h>
-#endif
 
 #include "help.h"
 #include "funcs.h"
@@ -44,7 +42,8 @@ By: Paul Wilkins\n\
     Shift, AND, OR and XOR operators by Nathaniel Clark.\n\
     Changes since version 1.1.2-3: Jens Getreu <getreu at web.de>\n\
     Current Maintainer (after 1.5.2): Nathaniel Clark\n\
-\n"
+\n\
+"
 
 #define HELP_TXT				\
     "\
@@ -138,11 +137,7 @@ void popup_window(GtkWidget **dialog, char *txt, char *title) {
     GtkWidget *scrolled_win;
     GtkWidget *label;
     GtkWidget *button;
-#ifdef USE_PANGO
     PangoFontDescription *pango_desc;
-#else
-    GdkFont *gfont;
-#endif
  
     if (*dialog == NULL) {
 	*dialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -174,20 +169,11 @@ void popup_window(GtkWidget **dialog, char *txt, char *title) {
 
 	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolled_win), label);
 
-#ifdef USE_PANGO
 	// Pick the default Monospaced font
 	pango_desc = pango_font_description_from_string("Mono");
 	if (pango_desc)
 	    gtk_widget_modify_font(label, pango_desc);
-#else
-	gfont = gdk_font_load("fixed");
-	if (gfont != NULL) {
-	    GtkStyle *style;
-	    style = gtk_style_copy(gtk_widget_get_default_style());
-	    gtk_style_set_font(style, gfont);
-	    gtk_style_attach(style, label);
-	}
-#endif
+
 	gtk_widget_show(label);
 
 	button = gtk_button_new_with_label("Dismiss");
@@ -265,7 +251,7 @@ void about_popup(){
     char *htxt;
     static GtkWidget *aboutDialog = NULL;
 
-    htxt = malloc(sizeof(ABOUT_TXT)+1);
+    htxt = malloc(sizeof(ABOUT_TXT)+32);
     if (htxt == NULL) {
 	perror("about_popup: malloc");
 	return;

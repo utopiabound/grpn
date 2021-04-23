@@ -42,20 +42,9 @@ GtkWidget *createButton(GtkWidget *parent,
     btn = gtk_button_new();
     label = gtk_label_new(fi->name);
     if (font) {
-#ifdef USE_PANGO
 	PangoFontDescription *pango_desc;
 	pango_desc = pango_font_description_from_string(font);
 	gtk_widget_modify_font(label, pango_desc);
-#else
-	GdkFont *gfont;
-	gfont = gdk_font_load(font);
-	if (gfont != NULL) {
-	    GtkStyle *style;
-	    style = gtk_style_copy(gtk_widget_get_default_style());
-	    gtk_style_set_font(style, font);
-	    style = gtk_style_attach(style, label);
-	}
-#endif
     }
     gtk_misc_set_alignment(GTK_MISC(label), 0.5, 0.5);
     gtk_misc_set_padding(GTK_MISC(label), 0, 0);

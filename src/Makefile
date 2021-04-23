@@ -11,9 +11,8 @@ CC = gcc
 
 # NOTE:
 #
-# add -DUSE_GNOME if you want to make grpn GNOME compliant.
-# add -DUSE_PANGO if you want to use pango fonts (via gtk2)
-CFLAG_OPTIONS = -DUSE_PANGO
+# add -DUSE_GNOME if you want to make grpn GNOME3 compliant.
+CFLAG_OPTIONS = 
 
 CFLAGS = -Wall -g -O2 $(shell pkg-config --cflags x11 gtk+-2.0)
 #CFLAGS += -DUSE_GNOME `pkg-config --cflags libgnomeui-2.0`
@@ -22,7 +21,6 @@ CFLAGS += ${CFLAG_OPTIONS}
 
 LIBS = $(shell pkg-config --libs x11 gtk+-2.0) -lm -lgmp
 #LIBS += `pkg-config --libs libgnomeui-2.0`
-#LIBS +=  `pkg-config --libs pango`
 
 # end of user configurable section
 
@@ -34,7 +32,7 @@ OBJS = real.o complex.o matrix.o number.o \
 	help.o mode.o undo.o
 
 grpn: $(OBJS) main.o
-	$(CC) $(DFLAGS) -o $@ $? $(LIBS)
+	$(CC) $(DFLAGS) -o $@ $^ $(LIBS)
 
 test:: testor
 	./testor
